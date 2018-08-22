@@ -41,7 +41,8 @@ h6 {
   font-weight: 400;
   color: #585858;
 }
-.Paragraph---regular {
+
+p {
   font-family: Roboto;
   font-size: 18px;
   font-weight: normal;
@@ -51,7 +52,7 @@ h6 {
   letter-spacing: normal;
   color: #3c3c3c;
 }
-.Paragraph---Small {
+.p-small {
   font-family: Roboto;
   font-size: 14px;
   font-weight: normal;
