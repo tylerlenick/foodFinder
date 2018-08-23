@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Google Fonts: Roboto Black -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:900" rel="stylesheet">
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+    <link rel="stylesheet" href="../styles/user.css">
+    <title>User Page</title>
+</head>
+
+<body id="userPage">
+    <!-- NAVBAR SECTION -->
+
+    <nav>
+        <div class="nav-wrapper">
+            <a href="#!" class="brand-logo">Food Finder</a>
+            <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="mobile.html">Sign Out</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <ul class="sidenav" id="mobile-demo">
+        <li><a href="mobile.html">Sign Out</a></li>
+    </ul>
+
+    <!-- USER INFO Section -->
+
+    <div id="profile-div" class="container">
+        <h1 id="userName">Rhonda Random</h1>
+        <div class="row">
+            <div class="col l4 m12 s12">
+                <img id="profile-pic" class="z-depth-5 responsive-img circle" src="../images/profile-pic.jpeg" alt="profile-pic">
+            </div>
+            <div class="col l4 m12 s12">
+                <h6>Bio</h6>
+                <div class="divider"></div>
+                <ul id="user-info-list">
+                    <li class="user-info">Name: Rhonda Random</li>
+                    <li class="user-info">Birthday: 04/26/1992</li>
+                    <li class="user-info">Email: rhonda@random.com</li>
+                    <li class="user-info">Address: 1234 Random St. Random, Rn</li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col l4 m12 s12">
+                <!-- LIKED RESTAURANTS -->
+                <h6>Liked</h6>
+                <div class="divider"></div>
+                <div class="collection">
+                    <a href="#!" class="collection-item">Restaurant #1</a>
+                    <a href="#!" class="collection-item active">Restaurant #2</a>
+                    <a href="#!" class="collection-item">Restaurant #3</a>
+                </div>
+            </div>
+            <div class="col l4 m12 s12">
+                <!-- DID NOT LIKE RESTAURANTS -->
+                <h6>Try Later</h6>
+                <div class="divider"></div>
+                <div class="collection">
+                    <a href="#!" class="collection-item">Restaurant #1</a>
+                    <a href="#!" class="collection-item active">Restaurant #2</a>
+                    <a href="#!" class="collection-item">Restaurant #3</a>
+                </div>
+            </div>
+            <div class="col l4 m12 s12">
+                <!-- DID NOT LIKE RESTAURANTS -->
+                <h6>Disliked</h6>
+                <div class="divider"></div>
+                <div class="collection">
+                    <a href="#!" class="collection-item">Restaurant #1</a>
+                    <a href="#!" class="collection-item active">Restaurant #2</a>
+                    <a href="#!" class="collection-item">Restaurant #3</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+    <script src="../js/index.js"></script>
+</body>
+
+</html>
