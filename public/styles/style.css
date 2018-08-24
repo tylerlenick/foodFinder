@@ -1,0 +1,102 @@
+#homePage {
+    background-image: linear-gradient(to bottom, #63a791, #00676E);
+    height: 758px;
+  }
+
+.parallax-container {
+    height: 718px;
+  }
+
+.container {
+    margin-top: 50px;
+}
+
+#logo {
+    color: white;
+    font-size: 3.2rem;
+}
+
+#welcome {
+    color: white
+}
+
+#signIn-div {
+    border-right: 1px solid white;
+}
+
+#signIn-logo {
+    width: 75px;
+    height: 75px;
+}
+
+#home-signIn {
+    margin-bottom: 30px;
+}
+
+.home-icon {
+    width: 75px;
+    height: 75px;
+    margin-bottom: 30px;
+}
+
+.user-steps {
+    margin-top: 50px;
+}
+
+#modal1 {
+    background-color: #054c59;
+    height: 855px;
+    width: 400px;
+}
+
+.modal .modal-content {
+    padding: 24px;
+    height: 475px;
+}
+
+#userPage {
+    background-image: linear-gradient(to bottom, #63a791, #00676E);
+    height: 758px;
+  }
+  
+nav {
+    font-family: 'Roboto', sans-serif;
+    font-size: 28px;
+    background-color: #363836
+}
+  
+#userName {
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-size: 38px;
+    line-height: 32px;
+    color: white
+}
+  
+#profile-div {
+    margin-top: 100px;
+}
+  
+#profile-pic {
+    width: 100%
+}
+  
+h6 {
+    text-align: center;
+    color: white
+}
+  
+.user-info {
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    line-height: 26px;
+    color: white
+}
+
+.login-modal {
+    color: white
+}
+
+input {
+    color: white;
+}
