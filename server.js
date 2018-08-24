@@ -3,7 +3,7 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var exphbs = require("express-handlebars");
 var passport = require("passport");
-var session    = require('express-session');
+var session = require('express-session');
 
 
 var db = require("./models");
@@ -36,7 +36,7 @@ app.set("view engine", "handlebars");
 require("./routes/user-apiRoutes")(app);
 require("./routes/restaurant-apiRoutes")(app);
 require("./routes/htmlRoutes")(app);
-var authRoute = require('./app/routes/auth.js')(app, passport);
+var authRoute = require('./routes/authRoutes.js')(app, passport);
 
 var syncOptions = { force: false };
 
