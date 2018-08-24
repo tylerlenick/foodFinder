@@ -6,18 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- Google Fonts: Roboto Black -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,900" rel="stylesheet">
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
     <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="../styles/reset.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
-    <link rel="stylesheet" href="../styles/user.css">
+    <link rel="stylesheet" href="../../public/styles/typography.css">
+    <link rel="stylesheet" href="../styles/style.css">
     <title>User Page</title>
 </head>
 
 <body id="userPage">
-    <!-- NAVBAR SECTION -->
 
+    <!-- NAVBAR SECTION -->
     <nav>
         <div class="nav-wrapper">
             <a href="#!" class="brand-logo">Food Finder</a>
@@ -35,12 +38,12 @@
     <!-- USER INFO Section -->
 
     <div id="profile-div" class="container">
-        <h1 id="userName">Rhonda Random</h1>
+        <h1 id="userName" class="animated zoomIn">Rhonda Random</h1>
         <div class="row">
             <div class="col l4 m12 s12">
-                <img id="profile-pic" class="z-depth-5 responsive-img circle" src="../images/profile-pic.jpeg" alt="profile-pic">
+                <img id="profile-pic" class="z-depth-5 responsive-img circle animated fadeInLeftBig" src="../images/profile-pic.jpeg" alt="profile-pic">
             </div>
-            <div class="col l4 m12 s12">
+            <div class="col l4 m12 s12 animated fadeInRightBig">
                 <h6>Bio</h6>
                 <div class="divider"></div>
                 <ul id="user-info-list">
@@ -52,7 +55,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col l4 m12 s12">
+            <div class="col l4 m12 s12 animated fadeInUpBig">
                 <!-- LIKED RESTAURANTS -->
                 <h6>Liked</h6>
                 <div class="divider"></div>
@@ -62,7 +65,7 @@
                     <a href="#!" class="collection-item">Restaurant #3</a>
                 </div>
             </div>
-            <div class="col l4 m12 s12">
+            <div class="col l4 m12 s12 animated fadeInUpBig">
                 <!-- DID NOT LIKE RESTAURANTS -->
                 <h6>Try Later</h6>
                 <div class="divider"></div>
@@ -72,7 +75,7 @@
                     <a href="#!" class="collection-item">Restaurant #3</a>
                 </div>
             </div>
-            <div class="col l4 m12 s12">
+            <div class="col l4 m12 s12 animated fadeInUpBig">
                 <!-- DID NOT LIKE RESTAURANTS -->
                 <h6>Disliked</h6>
                 <div class="divider"></div>
@@ -84,6 +87,9 @@
             </div>
         </div>
     </div>
+
+
+
 
 
 
