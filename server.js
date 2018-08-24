@@ -2,16 +2,31 @@ require("dotenv").config();
 var express = require("express");
 var bodyParser = require("body-parser");
 var exphbs = require("express-handlebars");
+var passport = require("passport");
+var Strategy = require("passport-local").Strategy;
+
 
 var db = require("./models");
 
 var app = express();
 var PORT = process.env.PORT || 3000;
 
-// Middleware
+//----- Middleware--------
+//Body Parser
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static("public"));
+
+//Passport
+passport.use(new Strategy(
+  function(username, password, cb) {
+    db.users.findByUsername(username, function(err, user) {
+      if (err) { return cb(err); }
+      if (!user) { return cb(null, false); }
+      if (user.password != password) { return cb(null, false); }
+      return cb(null, user);
+    });
+}));
 
 // Handlebars
 app.engine(
