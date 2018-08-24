@@ -2,7 +2,7 @@
   "development": {
     "username": "root",
     "password": null,
-    "database": "users_db",
+    "database": "FoodFinder_db",
     "host": "localhost",
     "dialect": "mysql"
   },
