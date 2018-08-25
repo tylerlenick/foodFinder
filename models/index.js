@@ -8,7 +8,7 @@ var env = process.env.NODE_ENV || "development";
 var config = require(__dirname + "/../config/config.json")[env];
 var db = {};
 
-var keys = require("./keys");
+var keys = require("../public/js/keys");
 var yelp = require("yelp-fusion");
 var client = yelp.client(keys.yelp);
 
