@@ -106,6 +106,14 @@ input {
     color: white
 }
 
+#signup-container {
+    background-color: rgba(35, 36, 36, 0.5)
+}
+
+#signup-btn {
+    margin-right: 25px;
+}
+
 @media only screen and (max-width: 600px) {
     #homePage {
         height: 950px

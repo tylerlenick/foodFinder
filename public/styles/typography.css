@@ -4,7 +4,7 @@ h1 {
   font-size: 2.6rem;
   line-height: 3.2rem;
   font-weight: 500;
-  color: #585858;
+  color: white;
 }
 h2 {
   font-family: 'Roboto', sans-serif;
@@ -18,21 +18,21 @@ h3 {
   font-size: 2rem;
   line-height: 3.2rem;
   font-weight: 400;
-  color: #2E9D73;
+  color: white;
 }
 h4 {
   font-family: 'Roboto', sans-serif;
   font-size: 1.8rem;
   line-height: 3.2rem;
   font-weight: 400;
-  color: #00676E;
+  color: white;
 }
 h5 {
   font-family: 'Roboto', sans-serif;
   font-size: 1.4rem;
   line-height: 3.2rem;
   font-weight: 400;
-  color: #230B09;
+  color: white;
 }
 h6 {
   font-family: 'Roboto', sans-serif;
