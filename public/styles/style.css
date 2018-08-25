@@ -1,6 +1,6 @@
-#homePage {
+body {
     background-image: linear-gradient(to bottom, #63a791, #00676E);
-    height: 758px;
+    min-height: 100vh;
   }
 
 .parallax-container {
@@ -54,10 +54,10 @@
     height: 475px;
 }
 
-#userPage {
+/* #userPage {
     background-image: linear-gradient(to bottom, #63a791, #00676E);
     height: 758px;
-  }
+  } */
   
 nav {
     font-family: 'Roboto', sans-serif;
