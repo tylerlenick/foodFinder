@@ -3,8 +3,7 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var exphbs = require("express-handlebars");
 var passport = require("passport");
-var session = require('express-session');
-
+var session = require("express-session");
 
 var db = require("./models");
 
@@ -18,10 +17,9 @@ app.use(bodyParser.json());
 app.use(express.static("public"));
 
 //Passport
-app.use(session({ secret: 'test',resave: true, saveUninitialized:true}));
+app.use(session({ secret: "test", resave: true, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
-
 
 // Handlebars
 app.engine(
@@ -36,10 +34,10 @@ app.set("view engine", "handlebars");
 require("./routes/user-apiRoutes")(app);
 require("./routes/restaurant-apiRoutes")(app);
 require("./routes/htmlRoutes")(app);
-var authRoute = require('./routes/authRoutes.js')(app, passport);
+require("./routes/authRoutes.js")(app, passport);
 
 //Require passport strategies
-require('./config/passport/passport.js')(passport, db.user);
+require("./config/passport/passport.js")(passport, db.user);
 
 var syncOptions = { force: false };
 
