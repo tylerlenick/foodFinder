@@ -6,6 +6,11 @@ module.exports = function(app) {
     res.render("index")
   });
 
+  // Load map page
+  app.get("/map", function(req, res) {
+    res.render("map")
+  });
+
   // Load signup page
   app.get("/signup", function(req, res) {
     res.render("signup")
@@ -25,4 +30,4 @@ module.exports = function(app) {
   app.get("*", function(req, res) {
     res.render("404");
   });
-};
+}
