@@ -6,13 +6,15 @@ h1 {
   line-height: 3.2rem;
   font-weight: 500;
   color: white;
+  margin: .5rem 0;
 }
 h2 {
   font-family: 'Roboto', sans-serif;
   font-size: 2.2rem;
   line-height: 3.2rem;
   font-weight: 500;
-  color: #C03305;
+  color: #EDEDED;
+  margin: .5rem 0;
 }
 h3 {
   font-family: 'Roboto', sans-serif;
@@ -20,6 +22,7 @@ h3 {
   line-height: 3.2rem;
   font-weight: 400;
   color: white;
+  margin: .5rem 0;
 }
 h4 {
   font-family: 'Roboto', sans-serif;
@@ -27,6 +30,7 @@ h4 {
   line-height: 3.2rem;
   font-weight: 400;
   color: white;
+  margin: .5rem 0;
 }
 h5 {
   font-family: 'Roboto', sans-serif;
@@ -34,13 +38,15 @@ h5 {
   line-height: 3.2rem;
   font-weight: 400;
   color: white;
+  margin: .5rem 0;
 }
 h6 {
   font-family: 'Roboto', sans-serif;
   font-size: 1rem;
-  line-height: 3.2rem;
+  line-height: 1rem;
   font-weight: 400;
   color: #585858;
+  margin: .5rem 0;
 }
 
 p {
@@ -52,6 +58,7 @@ p {
   line-height: 1.44;
   letter-spacing: normal;
   color: white;
+  margin: .5rem 0;
 }
 .p-small {
   font-family: Roboto;
@@ -62,6 +69,7 @@ p {
   line-height: 1.71;
   letter-spacing: normal;
   color: #3c3c3c;
+  margin: .5rem 0;
 }
 
 
