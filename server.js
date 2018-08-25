@@ -39,7 +39,7 @@ require("./routes/htmlRoutes")(app);
 var authRoute = require('./routes/authRoutes.js')(app, passport);
 
 //Require passport strategies
-require('./config/passport/passport.js')(passport, models.user);
+require('./config/passport/passport.js')(passport, db.user);
 
 var syncOptions = { force: false };
 
