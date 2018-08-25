@@ -78,7 +78,8 @@ nav {
 }
   
 #profile-pic {
-    width: 100%
+    width: 200px;
+    height: 200px;
 }
   
 h6 {
@@ -100,3 +101,13 @@ h6 {
 input {
     color: white;
 }
+
+#get-started {
+    color: white
+}
+
+@media only screen and (max-width: 600px) {
+    #homePage {
+        height: 950px
+    }
+} 
