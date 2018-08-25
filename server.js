@@ -4,6 +4,7 @@ var bodyParser = require("body-parser");
 var exphbs = require("express-handlebars");
 var passport = require("passport");
 var session = require("express-session");
+var flash = require("connect-flash");
 
 var db = require("./models");
 
@@ -29,6 +30,9 @@ app.engine(
   })
 );
 app.set("view engine", "handlebars");
+
+//Flash
+app.use(flash());
 
 // Routes
 require("./routes/user-apiRoutes")(app);
