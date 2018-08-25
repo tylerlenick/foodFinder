@@ -4,7 +4,8 @@
         <div class="nav-wrapper">
             <a href="#!" class="brand-logo">Food Finder</a>
             <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-            <ul class="right hide-on-med-and-down">
+            <ul id="nav-list" class="right hide-on-med-and-down">
+                <li id="list-border" ><a href="/map">Find a Restaurant!</a></li>
                 <li><a href="mobile.html">Sign Out</a></li>
             </ul>
         </div>
@@ -31,6 +32,11 @@
                     <li class="user-info">Email: {{user.email}}</li>
                     <li class="user-info">Address: 1234 Random St. Random, Rn</li>
                 </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col l12 m12 s12 left-align">
+                <a id="findres-user" href="/map" class="waves-effect waves-light btn pulse animated fadeInDownBig">Find A Restaurant!</a>
             </div>
         </div>
         <div class="row">

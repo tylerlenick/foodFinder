@@ -125,6 +125,24 @@ nav {
     font-size: 28px;
     background-color: #363836
 } 
+
+#nav-list {
+    display: inline-flex;
+}
+
+#list-border {
+    border-right: 1px solid white;
+}
+
+#nav-pic {
+    height: 25px;
+    width: 25px;
+}
+
+#findres-user {
+    margin-left: 82px;
+}
+
 #userName {
     text-align: center;
     font-family: 'Roboto', sans-serif;

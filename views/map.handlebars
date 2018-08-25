@@ -4,14 +4,15 @@
 
 
     <div class="map-shell">
-        <div id="map"><!--Google Map generated here--></div>
+        <div id="map">
+            <!--Google Map generated here-->
+        </div>
     </div>
 
 
 
     <!--Google map-->
-    <script async defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCrV31VZyCCvCWc5a9Mx4E-JFr4ERsP-Ek&callback=getLocation">
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCrV31VZyCCvCWc5a9Mx4E-JFr4ERsP-Ek&callback=mapDisplay">
     </script>
 
     <!--custom javascript below-->
@@ -188,27 +189,46 @@
 
         //Get custom geolocation through html5 for map settings below
         function getLocation() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(showPosition);
-            } else {
-                console.log("Geolocation is not supported by this browser.")
-            }
+            return new Promise(result => {
+
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(showPosition);
+                } else {
+                    console.log("Geolocation is not supported by this browser.")
+                }
+
+            })
         }
+
         function showPosition(position) {
-            var lat = position.coords.latitude;
-            var lon = position.coords.longitude;
+            return new Promise(result => {
+                var lat = position.coords.latitude;
+                var lon = position.coords.longitude;
 
-            //Styling the zoom and look for google map
-            map = new google.maps.Map(document.getElementById('map'), {
-            center: {lat: lat, lng: lon},
-            zoom: 12,
-            styles: snazzy,
-            disableDefaultUI: true
+                //Styling the zoom and look for google map
+                map = new google.maps.Map(document.getElementById('map'), {
+                    center: { lat: lat, lng: lon },
+                    zoom: 13,
+                    styles: snazzy,
+                    disableDefaultUI: true
 
-            });
+                });
+            }, 2000)
         };
 
+        async function mapDisplay() {
+            const location = await getLocation().then(function() {
+                const showPosition = showPosition();
+            });
+        
+            console.log("success")
+        }
+
         //------------------
+
+        // async await try
+
+
 
 
 
