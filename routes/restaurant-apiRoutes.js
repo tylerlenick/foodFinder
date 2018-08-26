@@ -1,4 +1,5 @@
 var db = require("../models");
+// YELP API
 
 module.exports = function(app) {
   // Get all restaurants
@@ -6,6 +7,11 @@ module.exports = function(app) {
     db.Restaurant.findAll({}).then(function(dbRestaurant) {
       res.json(dbRestaurant);
     });
+  });
+
+  app.post("/api/yelp", function(req, res) {
+    console.log(res);
+    console.log("yelp post route", req.body);
   });
 
   // Create a new restaurant
