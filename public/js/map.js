@@ -167,6 +167,8 @@ var snazzy = [
   }
 ];
 
+var userLocation;
+
 function initMap() {
   //Get custom geolocation through html5 for map settings below
   function getLocation() {
@@ -182,21 +184,48 @@ function initMap() {
     var lati = position.coords.latitude;
     var long = position.coords.longitude;
 
-    var foodLocation = { lat: lati, lng: long };
+    $.post("/map", {
+      userLocation: {
+        latitude: lati,
+        longitude: long
+      }
+    });
+
+    userLocation = { lat: lati, lng: long };
+
+    console.log(userLocation);
 
     //Initialize google map with styling & marker
     map = new google.maps.Map(document.getElementById("map"), {
-      center: foodLocation,
+      center: userLocation,
       disableDefaultUI: true,
       styles: snazzy,
-      zoom: 11
-      // gestureHandling: "none"
+      zoom: 14
+      //   gestureHandling: "none"
     });
 
-    var marker = new google.maps.Marker({ position: foodLocation, map: map });
+    var fFMapIcon = "../images/Logo-Export/Food-Finder-Map-Marker.png";
+    var marker = new google.maps.Marker({
+      position: userLocation,
+      map: map,
+      icon: fFMapIcon,
+      optimized: false
+    });
+
+    //-----------------------------
+    //Enable css styling for the google marker
+    var myoverlay = new google.maps.OverlayView();
+    myoverlay.draw = function() {
+      //this assigns an id to the markerlayer Pane, so it can be referenced by CSS
+      this.getPanes().markerLayer.id = "markerLayer";
+    };
+    myoverlay.setMap(map);
+    //-----------------------------
+
     console.log(marker);
   }
 }
-
 console.log(initMap);
+// ==================== YELP ================ //
 
+// =================== ZOMATO =============== //
