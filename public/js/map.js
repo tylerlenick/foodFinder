@@ -189,8 +189,8 @@ function initMap() {
       center: foodLocation,
       disableDefaultUI: true,
       styles: snazzy,
-      zoom: 11,
-      gestureHandling: "none"
+      zoom: 11
+      // gestureHandling: "none"
     });
 
     var marker = new google.maps.Marker({ position: foodLocation, map: map });
@@ -199,3 +199,4 @@ function initMap() {
 }
 
 console.log(initMap);
+
