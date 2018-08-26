@@ -9,7 +9,8 @@ module.exports = function(app, passport) {
     "/signup",
     passport.authenticate("local-signup", {
       successRedirect: "/dashboard",
-      failureRedirect: "/signup"
+      failureRedirect: "/signup",
+      failureFlash: true
     })
   );
 
