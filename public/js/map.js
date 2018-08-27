@@ -167,6 +167,8 @@ var snazzy = [
   }
 ];
 
+var userLocation;
+
 function initMap() {
   //Get custom geolocation through html5 for map settings below
   function getLocation() {
@@ -182,20 +184,31 @@ function initMap() {
     var lati = position.coords.latitude;
     var long = position.coords.longitude;
 
-    var foodLocation = { lat: lati, lng: long };
+    $.post("/map", {
+      userLocation: {
+        latitude: lati,
+        longitude: long
+      }
+    });
+
+    userLocation = { lat: lati, lng: long };
+
+    console.log(userLocation);
 
     //Initialize google map with styling & marker
     map = new google.maps.Map(document.getElementById("map"), {
-      center: foodLocation,
-      disableDefaultUI: true,
+      center: userLocation,
+      disableDefaultUI: false,
       styles: snazzy,
-      zoom: 11,
-      gestureHandling: "none"
+      zoom: 14
+      //   gestureHandling: "none"
     });
 
-    var marker = new google.maps.Marker({ position: foodLocation, map: map });
+    var marker = new google.maps.Marker({ position: userLocation, map: map });
     console.log(marker);
   }
 }
-
 console.log(initMap);
+// ==================== YELP ================ //
+
+// =================== ZOMATO =============== //
