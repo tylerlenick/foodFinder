@@ -1,5 +1,10 @@
 var db = require("../models");
 
+var keys = require("../public/js/keys");
+var yelp = require("yelp-fusion");
+var client = yelp.client(keys.yelp);
+console.log(client);
+
 module.exports = function(app) {
   // Load index page
   app.get("/", function(req, res) {
@@ -11,6 +16,13 @@ module.exports = function(app) {
     res.render("map");
   });
 
+  app.post("/map", function(req, res) {
+    console.log(
+      "======================== HTML ROUTES POST METHOD ================================="
+    );
+    console.log(req.body);
+    res.json({ ok: true });
+  });
   // Load signup page
   app.get("/signup", function(req, res) {
     res.render("signup");
