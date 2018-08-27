@@ -184,12 +184,7 @@ function initMap() {
     var lati = position.coords.latitude;
     var long = position.coords.longitude;
 
-    $.post("/map", {
-      userLocation: {
-        latitude: lati,
-        longitude: long
-      }
-    });
+    $.post("/map", { latitude: lati, longitude: long });
 
     userLocation = { lat: lati, lng: long };
 

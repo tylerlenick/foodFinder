@@ -2,8 +2,7 @@ var db = require("../models");
 
 var keys = require("../public/js/keys");
 var yelp = require("yelp-fusion");
-var client = yelp.client(keys.yelp);
-console.log(client);
+var client = yelp.client(keys.yelp.apiKey);
 
 module.exports = function(app) {
   // Load index page
@@ -20,7 +19,26 @@ module.exports = function(app) {
     console.log(
       "======================== HTML ROUTES POST METHOD ================================="
     );
-    console.log(req.body);
+    console.log(req.body.latitude);
+    console.log(req.body.longitude);
+    var searchRequest = {
+      term: "restaurants",
+      latitude: req.body.latitude,
+      longitude: req.body.longitude,
+      radius: 10000,
+      limit: 10,
+      open_now: true
+    };
+    client
+      .search(searchRequest)
+      .then(function(response) {
+        var firstResult = response.jsonBody.businesses;
+        var prettyJson = JSON.stringify(firstResult, null, 4);
+        console.log(prettyJson);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
     res.json({ ok: true });
   });
   // Load signup page
