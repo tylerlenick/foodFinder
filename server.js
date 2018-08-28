@@ -41,7 +41,7 @@ require("./routes/htmlRoutes")(app);
 require("./routes/authRoutes.js")(app, passport);
 
 //Require passport strategies
-require("./config/passport/passport.js")(passport, db.user);
+require("./config/passport/passport.js")(passport, db.User);
 
 var syncOptions = { force: false };
 

@@ -1,14 +1,21 @@
-<div>
+
+    <!--Navigation-->
+    <nav class="col s12">
+        {{> navigation/nav}}
+    </nav>
+
     
     <!--Map is set as background of whole page-->
-    <div class="map-shell">
+    <div class="col s12 m12 map-shell">
         <div id="map">
             <!--Google Map generated here-->
         </div>
     </div>
 
+
     <!--location card info-->
-    {{> locationCard/locationInfo}}
+    <div class="col s12">
+        {{> locationCard/locationInfo}}
+    </div>
 
 
-</div>

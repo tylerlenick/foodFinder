@@ -23,6 +23,7 @@ module.exports = function(sequelize, DataTypes) {
     email: {
       type: DataTypes.STRING,
       unique: true,
+      allowNull: false,
       validate: {
         isEmail: {
           args: true,
@@ -32,13 +33,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        len: {
-          args: [5, 15],
-          msg: "Passwords must be between 5 and 15 characters in length."
-        }
-      }
+      allowNull: false
     }
   });
 

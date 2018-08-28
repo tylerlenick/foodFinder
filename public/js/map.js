@@ -184,12 +184,7 @@ function initMap() {
     var lati = position.coords.latitude;
     var long = position.coords.longitude;
 
-    $.post("/map", {
-      userLocation: {
-        latitude: lati,
-        longitude: long
-      }
-    });
+    $.post("/map", { latitude: lati, longitude: long });
 
     userLocation = { lat: lati, lng: long };
 
@@ -198,13 +193,30 @@ function initMap() {
     //Initialize google map with styling & marker
     map = new google.maps.Map(document.getElementById("map"), {
       center: userLocation,
-      disableDefaultUI: false,
+      disableDefaultUI: true,
       styles: snazzy,
       zoom: 14
       //   gestureHandling: "none"
     });
 
-    var marker = new google.maps.Marker({ position: userLocation, map: map });
+    var fFMapIcon = "../images/Logo-Export/Food-Finder-Map-Marker.png";
+    var marker = new google.maps.Marker({
+      position: userLocation,
+      map: map,
+      icon: fFMapIcon,
+      optimized: false
+    });
+
+    //-----------------------------
+    //Enable css styling for the google marker
+    var myoverlay = new google.maps.OverlayView();
+    myoverlay.draw = function() {
+      //this assigns an id to the markerlayer Pane, so it can be referenced by CSS
+      this.getPanes().markerLayer.id = "markerLayer";
+    };
+    myoverlay.setMap(map);
+    //-----------------------------
+
     console.log(marker);
   }
 }
