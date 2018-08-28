@@ -168,6 +168,8 @@ var snazzy = [
 ];
 
 var userLocation;
+var restaurant = [];
+var latlng = [];
 
 function initMap() {
   //Get custom geolocation through html5 for map settings below
@@ -184,20 +186,20 @@ function initMap() {
     var lati = position.coords.latitude;
     var long = position.coords.longitude;
 
-    $.post("/map", { latitude: lati, longitude: long });
-
+    latlng.push(lati, long);
     userLocation = { lat: lati, lng: long };
-
-    console.log(userLocation);
 
     //Initialize google map with styling & marker
     map = new google.maps.Map(document.getElementById("map"), {
       center: userLocation,
       disableDefaultUI: true,
       styles: snazzy,
-      zoom: 14
+      zoom: 16
       //   gestureHandling: "none"
     });
+
+    // Displaying the directions on map
+    // directionsDisplay.setMap(map);
 
     var fFMapIcon = "../images/Logo-Export/Food-Finder-Map-Marker.png";
     var marker = new google.maps.Marker({
@@ -206,6 +208,11 @@ function initMap() {
       icon: fFMapIcon,
       optimized: false
     });
+
+    // GOOGLE DIRECTIONS API
+
+    // var directionsService = new google.maps.DirectionsService;
+    // var directionsDisplay = new google.maps.DirectionsRenderer;
 
     //-----------------------------
     //Enable css styling for the google marker
@@ -218,9 +225,53 @@ function initMap() {
     //-----------------------------
 
     console.log(marker);
+
+    // =================== YELP ================= //
+
+    $.post("/api/yelp", { latitude: lati, longitude: long }, function(data) {
+      // console.log(data);
+      var yelpSearch = data[Math.floor(Math.random() * data.length)];
+      restaurant.push(yelpSearch);
+      console.log(yelpSearch);
+
+      // DISPLAY RESTAURANT DATA ON PAGE
+
+      $("#rest-name").html(yelpSearch.name);
+      $("#rest-city").html(yelpSearch.location.city);
+      $("#rest-rating").html("Rating: " + yelpSearch.rating);
+      $("#rest-price").html("Price: " + yelpSearch.price);
+      $("#rest-review").html("Review Count: " + yelpSearch.review_count);
+      $("#rest-image").attr("src", yelpSearch.image_url);
+      if (yelpSearch.is_closed === false) {
+        $("#rest-open").html("Currently: OPEN");
+      } else {
+        $("#rest-open").html("Currently: CLOSED");
+      }
+      $("#rest-phone").html("Phone:" + yelpSearch.display_phone);
+      $("#rest-type-1").html(yelpSearch.categories[0].title);
+      $("#rest-type-2").html(yelpSearch.categories[1].title);
+      $("#rest-address").html(yelpSearch.location.display_address);
+    });
   }
+  console.log(latlng);
+  console.log(restaurant);
+  // ======================GOOGLE DIRECTIONS======================= //
+
+  // function googleDirections(restaurant) {
+  //   console.log("test line 253");
+  //   axios
+  //     .get("https://maps.googleapis.com/maps/api/directions/json?", {
+  //       params: {
+  //         origin: latlng,
+  //         destination: restaurant.location,
+  //         key: "AIzaSyCrV31VZyCCvCWc5a9Mx4E-JFr4ERsP-Ek"
+  //       }
+  //     })
+  //     .then(function(response) {
+  //       console.log(response);
+  //     });
+  // }
+
+  // googleDirections(restaurant);
 }
 console.log(initMap);
-// ==================== YELP ================ //
-
-// =================== ZOMATO =============== //

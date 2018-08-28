@@ -40,6 +40,15 @@
     height: 300px;
     margin: 2rem 0;
 }
+
+#location-img {
+    width: 300px;
+    height: 300px;
+}
+
+#rest-image {
+
+}
 /*Bottom Section*/
 .stats-bottom{
     justify-content: center;
@@ -93,7 +102,6 @@
     /*Navigation settings for mobile screens*/
     .brand-logo{
         padding:1.2rem !important;
-        height:
     }    
     #logo {
         width: 90%;
