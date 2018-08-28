@@ -14,7 +14,9 @@ exports.dashboard = function(req, res) {
 
 exports.logout = function(req, res) {
   req.session.destroy(function(err) {
-    if (err) throw err;
+    if (err) {
+      throw err;
+    }
     res.redirect("/");
   });
 };
