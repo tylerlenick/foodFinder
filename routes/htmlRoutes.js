@@ -1,5 +1,4 @@
 var db = require("../models");
-
 var keys = require("../public/js/keys");
 var yelp = require("yelp-fusion");
 var client = yelp.client(keys.yelp.apiKey);
