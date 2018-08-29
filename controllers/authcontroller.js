@@ -19,4 +19,5 @@ exports.logout = function(req, res) {
     }
     res.redirect("/");
   });
+  console.log("User signed out.");
 };

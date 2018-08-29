@@ -3,26 +3,6 @@ var bCrypt = require("bcrypt-nodejs");
 module.exports = function(passport, user) {
   var User = user;
   var LocalStrategy = require("passport-local").Strategy;
-<<<<<<< HEAD
-
-  //serialize
-  passport.serializeUser(function(user, done) {
-    done(null, user.id);
-  });
-
-  //deserialize
-  passport.deserializeUser(function(id, done) {
-    User.findById(id).then(function(user) {
-      if (user) {
-        done(null, user.get());
-      } else {
-        done(user.errors, null);
-      }
-    });
-  });
-
-=======
->>>>>>> c972710f55523a99584fc4481ed758107dcc91cc
   passport.use(
     "local-signup",
     new LocalStrategy(
