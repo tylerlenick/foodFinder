@@ -112,6 +112,10 @@ body {
 #user-steps {
     margin-top: 50px;
 }
+
+.delete {
+    margin-left: 650px;
+}
 #modal1 {
     background-color: #054c59;
     height: 855px;
