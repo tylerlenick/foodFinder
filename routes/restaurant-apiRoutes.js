@@ -3,15 +3,12 @@ var db = require("../models");
 var keys = require("../public/js/keys");
 var yelp = require("yelp-fusion");
 var client = yelp.client(keys.yelp.apiKey);
+var express = require("express");
+var router = express.Router();
+var restaurantController = require("../controllers/restaurantControllers");
 
 module.exports = function(app) {
-  // Get all restaurants
-  app.get("/api/restaurants", function(req, res) {
-    db.Restaurant.findAll({}).then(function(dbRestaurant) {
-      res.json(dbRestaurant);
-    });
-  });
-
+  //Get YELP
   app.get("/api/yelp", function(req, res) {
     res.json();
   });
@@ -42,22 +39,34 @@ module.exports = function(app) {
         console.log(error);
       });
   });
+  /*----------- Routes for storing and viewing saved restaurants--------*/
+
+  // Get all restaurants
+  router.get(
+    "api/restaurants",
+    isLoggedIn,
+    restaurantController.restaurantList
+  );
 
   // Create a new restaurant
-  app.post("/api/restaurants", function(req, res) {
-    db.Restaurant.create(req.body).then(function(dbRestaurant) {
-      res.json(dbRestaurant);
-    });
-  });
+  router.post(
+    "api/restaurants",
+    isLoggedIn,
+    restaurantController.saveRestaurant
+  );
 
   // Delete a restaurant by id
-  app.delete("/api/restaurants/:id", function(req, res) {
-    db.Restaurant.destroy({
-      where: {
-        id: req.params.id
-      }
-    }).then(function(dbRestaurant) {
-      res.json(dbRestaurant);
-    });
-  });
+  app.delete(
+    "/api/restaurants/:id",
+    isLoggedIn,
+    restaurantController.deleteRestaurant
+  );
+
+  function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated()) {
+      return next();
+    }
+
+    res.redirect("/signin");
+  }
 };
