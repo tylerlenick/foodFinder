@@ -169,7 +169,8 @@ var snazzy = [
 
 var userLocation;
 var restaurant = [];
-var latlng = [];
+var userlatlng = [];
+var restlatlng = [];
 
 function initMap() {
   //Get custom geolocation through html5 for map settings below
@@ -186,7 +187,7 @@ function initMap() {
     var lati = position.coords.latitude;
     var long = position.coords.longitude;
 
-    latlng.push(lati, long);
+    userlatlng.push(lati, long);
     userLocation = { lat: lati, lng: long };
 
     //Initialize google map with styling & marker
@@ -194,12 +195,9 @@ function initMap() {
       center: userLocation,
       disableDefaultUI: true,
       styles: snazzy,
-      zoom: 16
+      zoom: 12
       //   gestureHandling: "none"
     });
-
-    // Displaying the directions on map
-    // directionsDisplay.setMap(map);
 
     var fFMapIcon = "../images/Logo-Export/Food-Finder-Map-Marker.png";
     var marker = new google.maps.Marker({
@@ -208,11 +206,6 @@ function initMap() {
       icon: fFMapIcon,
       optimized: false
     });
-
-    // GOOGLE DIRECTIONS API
-
-    // var directionsService = new google.maps.DirectionsService;
-    // var directionsDisplay = new google.maps.DirectionsRenderer;
 
     //-----------------------------
     //Enable css styling for the google marker
@@ -233,6 +226,10 @@ function initMap() {
       var yelpSearch = data[Math.floor(Math.random() * data.length)];
       restaurant.push(yelpSearch);
       console.log(yelpSearch);
+      restlatlng.push(
+        yelpSearch.coordinates.latitude,
+        yelpSearch.coordinates.longitude
+      );
 
       // DISPLAY RESTAURANT DATA ON PAGE
 
@@ -251,27 +248,35 @@ function initMap() {
       $("#rest-type-1").html(yelpSearch.categories[0].title);
       $("#rest-type-2").html(yelpSearch.categories[1].title);
       $("#rest-address").html(yelpSearch.location.display_address);
+
+      // GOOGLE DIRECTIONS API
+
+      console.log(userlatlng);
+      console.log(restlatlng);
+
+      var directionsService = new google.maps.DirectionsService;
+      var directionsDisplay = new google.maps.DirectionsRenderer;
+
+      function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+        directionsService.route(
+          {
+            origin: userlatlng.toString(),
+            destination: restlatlng.toString(),
+            travelMode: "DRIVING"
+          },
+          function(response, status) {
+            if (status === "OK") {
+              directionsDisplay.setDirections(response);
+            } else {
+              window.alert("Directions request failed due to " + status);
+            }
+          }
+        );
+      }
+
+      calculateAndDisplayRoute(directionsService, directionsDisplay);
+      directionsDisplay.setMap(map);
     });
   }
-  console.log(latlng);
-  console.log(restaurant);
-  // ======================GOOGLE DIRECTIONS======================= //
-
-  // function googleDirections(restaurant) {
-  //   console.log("test line 253");
-  //   axios
-  //     .get("https://maps.googleapis.com/maps/api/directions/json?", {
-  //       params: {
-  //         origin: latlng,
-  //         destination: restaurant.location,
-  //         key: "AIzaSyCrV31VZyCCvCWc5a9Mx4E-JFr4ERsP-Ek"
-  //       }
-  //     })
-  //     .then(function(response) {
-  //       console.log(response);
-  //     });
-  // }
-
-  // googleDirections(restaurant);
 }
 console.log(initMap);
