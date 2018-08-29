@@ -129,10 +129,6 @@ body {
 
 /*User Page Styling*/
 /*----------------------------------------------------------*/
-/* #userPage {
-    background-image: linear-gradient(to bottom, #63a791, #00676E);
-    height: 758px;
-  } */
   
 nav {
     font-family: 'Roboto', sans-serif !important;
@@ -210,6 +206,22 @@ input {
     margin-right: 25px;
 }
 
+
+/*Materialize mobile navigation custom styling*/
+.sidenav{
+    background-image: linear-gradient(to bottom, #63a791, #00676E);
+    padding: 1rem;
+}
+.nav-item{
+    font-size: 1.5rem;
+    color: #616161;
+}
+.nav-item:hover{
+    color: #63a791;
+}
+nav ul{
+    padding-top: 1rem !important;
+}
 
 /*Media Queries*/
 /*----------------------------------------------------------*/

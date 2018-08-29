@@ -1,12 +1,19 @@
-  <div class="nav-wrapper">
-    {{!-- <a href="#!" class="brand-logo">Food Finder</a> --}}
-    <div class="brand-logo">
-      <img id="logo" src="/images/Logo-Export/Food-Finder-Logo.png" href="/">
-    </div>
-    <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-    <ul class="right hide-on-med-and-down">
-      <li><a href="mobile.html" id="signout-btn">Sign Out</a></li>
-    </ul>
+<!--Navigation-->
+<div class="nav-wrapper">
+  <div class="brand-logo" ><a href="/">
+    <img id="logo" src="/images/Logo-Export/Food-Finder-Logo.png"></a>
   </div>
+  <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+  <ul class="right hide-on-med-and-down">
+    <li><a href="/user"><h3 class="nav-item" id="my-profile">My Profile</h3></a></li>
+    <li><a href="/logout"><h3 class="nav-item">Log Out</h3></a></li>
+  </ul>
+</div>
 
-  
+<!--Mobile Navigation-->
+<ul class="sidenav" id="mobile-demo">
+  <li><a href="sass.html"><h3>My Profile</h3></a></li>
+  <li><a href="badges.html"><h3>Log Out</h3></a></li>
+</ul>
+
+<script src="/js/map.js"></script>
