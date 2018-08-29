@@ -276,11 +276,15 @@ function initMap() {
       var directionsDisplay = new google.maps.DirectionsRenderer;
 
       function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+
+        // var fFMapIcon = "../images/Logo-Export/Food-Finder-Map-Marker.png";
         directionsService.route(
           {
             origin: userlatlng.toString(),
             destination: restlatlng.toString(),
             travelMode: "DRIVING"
+            // icon: fFMapIcon,
+            // optimized: false
           },
           function(response, status) {
             if (status === "OK") {
@@ -295,6 +299,18 @@ function initMap() {
       calculateAndDisplayRoute(directionsService, directionsDisplay);
       directionsDisplay.setMap(map);
     });
-  }
+  };
 }
 console.log(initMap);
+
+
+$("#my-profile").on("click", function() {
+  console.log("Going to user profile");
+  $.ajax({
+    type: "GET",
+    url: "/",
+    success: function(result) {
+      $("#div1").html(result);
+    }
+  });
+});
