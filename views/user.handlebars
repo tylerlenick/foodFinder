@@ -16,14 +16,13 @@
             <div class="col l4 m12 s12 center-align">
                 <img id="profile-pic" class="center-align z-depth-5 responsive-img circle animated fadeInLeftBig" src="../images/Orion_male-user-white.png" alt="profile-pic">
             </div>
-            <div class="col l4 m12 s12 animated fadeInRightBig">
+            <div id="bio-div" class="col l4 m12 s12 animated fadeInRightBig">
                 <h6>Bio</h6>
                 <div class="divider"></div>
                 <ul id="user-info-list">
-                    <li class="user-info">Username: {{user.username}}</li>
-                    <li class="user-info">Birthday: 04/26/1992</li>
+                    <li class="user-info">First Name: {{user.fname}}</li>
+                    <li class="user-info">Last Name: {{user.lname}}</li>
                     <li class="user-info">Email: {{user.email}}</li>
-                    <li class="user-info">Address: 1234 Random St. Random, Rn</li>
                 </ul>
             </div>
         </div>
@@ -33,7 +32,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col l4 m12 s12 animated fadeInUpBig">
+            {{!-- <div class="col l4 m12 s12 animated fadeInUpBig">
                 <!-- LIKED RESTAURANTS -->
                 <h6>Liked</h6>
                 <div class="divider"></div>
@@ -42,8 +41,8 @@
                     <a href="#!" class="collection-item active">Restaurant #2</a>
                     <a href="#!" class="collection-item">Restaurant #3</a>
                 </div>
-            </div>
-            <div class="col l4 m12 s12 animated fadeInUpBig">
+            </div> --}}
+            <div class="col l10 offset-l1 m12 s12 animated fadeInUpBig center-align">
                 <!-- DID NOT LIKE RESTAURANTS -->
                 <h6>Try Later</h6>
                 <div class="divider"></div>
@@ -53,7 +52,7 @@
                     <a href="#!" class="collection-item">Restaurant #3</a>
                 </div>
             </div>
-            <div class="col l4 m12 s12 animated fadeInUpBig">
+            {{!-- <div class="col l4 m12 s12 animated fadeInUpBig">
                 <!-- DID NOT LIKE RESTAURANTS -->
                 <h6>Disliked</h6>
                 <div class="divider"></div>
@@ -62,6 +61,6 @@
                     <a href="#!" class="collection-item active">Restaurant #2</a>
                     <a href="#!" class="collection-item">Restaurant #3</a>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
