@@ -195,7 +195,7 @@ function initMap() {
       center: userLocation,
       disableDefaultUI: true,
       styles: snazzy,
-      zoom: 12
+      zoom: 10
       //   gestureHandling: "none"
     });
 

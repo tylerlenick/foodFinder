@@ -165,6 +165,11 @@ nav {
     width: 200px;
     height: 200px;
 }
+
+#bio-div {
+    margin-top: 35px;
+}
+
 h6 {
     text-align: center;
     color: white
@@ -173,7 +178,8 @@ h6 {
     font-family: 'Roboto', sans-serif;
     font-size: 18px;
     line-height: 26px;
-    color: white
+    color: white;
+    padding: 3px;
 }
 .login-modal {
     color: white
