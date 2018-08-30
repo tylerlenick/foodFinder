@@ -254,6 +254,25 @@ function initMap() {
       $("#rest-type-2").html(yelpSearch.categories[1].title);
       $("#rest-address").html(yelpSearch.location.display_address);
 
+      // BUTTON EVENT HANDLER
+
+      $("#tryLater").on("click", function(event){
+        event.preventDefault();
+
+        //   var newRestaurant = {
+        //     yelpID: yelpSearch.id,
+
+        //   };
+        //   console.log(newRestaurant);
+        //   submitRes(newRestaurant);
+        // });
+
+        // function submitRes(restaurant) {
+        $.post("/restaurants", yelpSearch, function() {
+          console.log("Restaurant added to database.");
+        });
+      });
+
       // GOOGLE DIRECTIONS API
 
       console.log(userlatlng);
