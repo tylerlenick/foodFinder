@@ -171,6 +171,7 @@ var userLocation;
 var restaurant = [];
 var userlatlng = [];
 var restlatlng = [];
+var restlocation;
 
 function initMap() {
   //Get custom geolocation through html5 for map settings below
@@ -190,49 +191,53 @@ function initMap() {
     userlatlng.push(lati, long);
     userLocation = { lat: lati, lng: long };
 
-    //Initialize google map with styling & marker
-    map = new google.maps.Map(document.getElementById("map"), {
-      center: userLocation,
-      disableDefaultUI: true,
-      styles: snazzy,
-      zoom: 10
-      //   gestureHandling: "none"
-    });
-
-    var fFMapIcon = "../images/Logo-Export/Food-Finder-Map-Marker.png";
-    var marker = new google.maps.Marker({
-      position: userLocation,
-      map: map,
-      icon: fFMapIcon,
-      optimized: false
-    });
-
-    //-----------------------------
-    //Enable css styling for the google marker
-    var myoverlay = new google.maps.OverlayView();
-    myoverlay.draw = function() {
-      //this assigns an id to the markerlayer Pane, so it can be referenced by CSS
-      this.getPanes().markerLayer.id = "markerLayer";
-    };
-    myoverlay.setMap(map);
-    //-----------------------------
-
-    console.log(marker);
-
     // =================== YELP ================= //
 
     $.post("/api/yelp", { latitude: lati, longitude: long }, function(data) {
       // console.log(data);
       var yelpSearch = data[Math.floor(Math.random() * data.length)];
       restaurant.push(yelpSearch);
-      console.log(yelpSearch);
+      // console.log(yelpSearch);
       restlatlng.push(
         yelpSearch.coordinates.latitude,
         yelpSearch.coordinates.longitude
       );
+      var restLat = yelpSearch.coordinates.latitude;
+      var restLong = yelpSearch.coordinates.longitude;
+
+      restlocation = {
+        lat: restLat,
+        lng: restLong
+      };
+      console.log("This is the restaurant lattitude : " + JSON.parse(restlocation));
+
+      //Initialize google map with styling & marker
+      map = new google.maps.Map(document.getElementById("map"), {
+        center: restlatlng,
+        disableDefaultUI: true,
+        styles: snazzy,
+        zoom: 10
+        //   gestureHandling: "none"
+      });
+
+      var fFMapIcon = "../images/Logo-Export/Food-Finder-Map-Marker.png";
+      var marker = new google.maps.Marker({
+        position: userLocation,
+        map: map,
+        icon: fFMapIcon,
+        optimized: false
+      });
+      //-----------------------------
+      //Enable css styling for the google marker
+      var myoverlay = new google.maps.OverlayView();
+      myoverlay.draw = function() {
+        //this assigns an id to the markerlayer Pane, so it can be referenced by CSS
+        this.getPanes().markerLayer.id = "markerLayer";
+      };
+      myoverlay.setMap(map);
+      //-----------------------------
 
       // DISPLAY RESTAURANT DATA ON PAGE
-
       $("#rest-name").html(yelpSearch.name);
       $("#rest-city").html(yelpSearch.location.city);
       $("#rest-rating").html("Rating: " + yelpSearch.rating);
@@ -249,17 +254,16 @@ function initMap() {
       $("#rest-type-2").html(yelpSearch.categories[1].title);
       $("#rest-address").html(yelpSearch.location.display_address);
 
-      // GOOGLE DIRECTIONS API
 
-      console.log(userlatlng);
-      console.log(restlatlng);
+      // GOOGLE DIRECTIONS API
+      // console.log(userlatlng);
+      // console.log(restlatlng);
 
       var directionsService = new google.maps.DirectionsService;
       var directionsDisplay = new google.maps.DirectionsRenderer;
 
       function calculateAndDisplayRoute(directionsService, directionsDisplay) {
 
-        // var fFMapIcon = "../images/Logo-Export/Food-Finder-Map-Marker.png";
         directionsService.route(
           {
             origin: userlatlng.toString(),
@@ -283,16 +287,4 @@ function initMap() {
     });
   };
 }
-console.log(initMap);
-
-
-$("#my-profile").on("click", function() {
-  console.log("Going to user profile");
-  $.ajax({
-    type: "GET",
-    url: "/",
-    success: function(result) {
-      $("#div1").html(result);
-    }
-  });
-});
+// console.log(initMap);
