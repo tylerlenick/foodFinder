@@ -1,6 +1,7 @@
 /*Template overrides*/
 .fit{
     margin-bottom: 0!important;
+    margin-right: 0!important;
 }
 /*Map Object*/
 .map-shell{
@@ -81,6 +82,7 @@
     /*Template overrides*/
     .fit{
         margin: 0!important;
+        margin-right: 0!important;
     }
     /*Map Object*/
     .map-shell{
