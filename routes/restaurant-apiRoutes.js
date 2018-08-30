@@ -42,24 +42,10 @@ module.exports = function(app) {
   /*----------- Routes for storing and viewing saved restaurants--------*/
 
   // Get all restaurants
-  app.get(
-    "api/restaurants",
-    isLoggedIn,
-    restaurantController.restaurantList
-  );
+  app.get("/api/restaurants", isLoggedIn, restaurantController.restaurantList);
 
   // Create a new restaurant
-  app.post(
-    "/restaurants",
-    isLoggedIn,
-    restaurantController.saveRestaurant
-  );
-  // app.post("/api/restaurants", function(req, res) {
-  //   db.Restaurant.create(req.body).then(function(dbRestaurant) {
-  //     res.json(dbRestaurant);
-  //     console.log("Restaurant has been added to the database.")
-  //   });
-  // });
+  app.post("/restaurants", isLoggedIn, restaurantController.saveRestaurant);
 
   // Delete a restaurant by id
   app.delete(
