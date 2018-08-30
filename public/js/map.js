@@ -309,13 +309,13 @@ function initMap() {
   getLocation();
 }
 
-$("#my-profile").on("click", function() {
-  console.log("Going to user profile");
-  $.ajax({
-    type: "GET",
-    url: "/",
-    success: function(result) {
-      $("#div1").html(result);
-    }
-  });
-});
+// $("#my-profile").on("click", function() {
+//   console.log("Going to user profile");
+//   $.ajax({
+//     type: "GET",
+//     url: "/",
+//     success: function(result) {
+//       $("#div1").html(result);
+//     }
+//   });
+// });
