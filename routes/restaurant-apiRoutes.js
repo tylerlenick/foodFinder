@@ -42,15 +42,15 @@ module.exports = function(app) {
   /*----------- Routes for storing and viewing saved restaurants--------*/
 
   // Get all restaurants
-  router.get(
+  app.get(
     "api/restaurants",
     isLoggedIn,
     restaurantController.restaurantList
   );
 
   // Create a new restaurant
-  router.post(
-    "/api/restaurants",
+  app.post(
+    "/restaurants",
     isLoggedIn,
     restaurantController.saveRestaurant
   );
