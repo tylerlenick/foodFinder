@@ -256,7 +256,7 @@ function initMap() {
 
       // BUTTON EVENT HANDLER
 
-      $("#tryLater").on("click", function(event){
+      $("#tryLater").on("click", function(event) {
         event.preventDefault();
 
         //   var newRestaurant = {
