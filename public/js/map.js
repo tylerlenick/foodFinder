@@ -249,6 +249,25 @@ function initMap() {
       $("#rest-type-2").html(yelpSearch.categories[1].title);
       $("#rest-address").html(yelpSearch.location.display_address);
 
+      // BUTTON EVENT HANDLER
+
+      $("#tryLater").on("click", function(event){
+        event.preventDefault();
+
+      //   var newRestaurant = {
+      //     yelpID: yelpSearch.id,
+
+      //   };
+      //   console.log(newRestaurant);
+      //   submitRes(newRestaurant);
+      // });
+
+      // function submitRes(restaurant) {
+        $.post("/restaurants", yelpSearch, function() {
+          console.log("Restaurant added to database.");
+        });
+       });
+       
       // GOOGLE DIRECTIONS API
 
       console.log(userlatlng);
@@ -258,7 +277,6 @@ function initMap() {
       var directionsDisplay = new google.maps.DirectionsRenderer;
 
       function calculateAndDisplayRoute(directionsService, directionsDisplay) {
-
         // var fFMapIcon = "../images/Logo-Export/Food-Finder-Map-Marker.png";
         directionsService.route(
           {
@@ -281,10 +299,9 @@ function initMap() {
       calculateAndDisplayRoute(directionsService, directionsDisplay);
       directionsDisplay.setMap(map);
     });
-  };
+  }
 }
 console.log(initMap);
-
 
 $("#my-profile").on("click", function() {
   console.log("Going to user profile");
