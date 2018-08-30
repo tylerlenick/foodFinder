@@ -202,30 +202,37 @@ function initMap() {
         yelpSearch.coordinates.latitude,
         yelpSearch.coordinates.longitude
       );
-      var restLat = yelpSearch.coordinates.latitude;
-      var restLong = yelpSearch.coordinates.longitude;
 
-      restlocation = {
-        lat: restLat,
-        lng: restLong
+      var restLocation = {
+        lat: yelpSearch.coordinates.latitude,
+        lng: yelpSearch.coordinates.longitude
       };
-      console.log("This is the restaurant lattitude : " + JSON.parse(restlocation));
 
       //Initialize google map with styling & marker
       map = new google.maps.Map(document.getElementById("map"), {
-        center: restlatlng,
+        center: restLocation,
         disableDefaultUI: true,
         styles: snazzy,
         zoom: 10
         //   gestureHandling: "none"
       });
 
-      var fFMapIcon = "../images/Logo-Export/Food-Finder-Map-Marker.png";
-      var marker = new google.maps.Marker({
-        position: userLocation,
+      var endIcon = "../images/Logo-Export/Food-Finder-Map-Marker.png";
+      var startIcon = "../images/Logo-Export/FF-User-Icon.png";
+
+      var markerStart = new google.maps.Marker({
         map: map,
-        icon: fFMapIcon,
-        optimized: false
+        icon: startIcon,
+        zIndex: 210,
+        optimized: false,
+        animation: google.maps.Animation.DROP
+      });
+      var markerEnd = new google.maps.Marker({
+        map: map,
+        icon: endIcon,
+        zIndex: 210,
+        optimized: false,
+        animation: google.maps.Animation.DROP
       });
       //-----------------------------
       //Enable css styling for the google marker
@@ -254,6 +261,24 @@ function initMap() {
       $("#rest-type-2").html(yelpSearch.categories[1].title);
       $("#rest-address").html(yelpSearch.location.display_address);
 
+      // BUTTON EVENT HANDLER
+
+      $("#tryLater").on("click", function(event){
+        event.preventDefault();
+
+      //   var newRestaurant = {
+      //     yelpID: yelpSearch.id,
+
+      //   };
+      //   console.log(newRestaurant);
+      //   submitRes(newRestaurant);
+      // });
+
+      // function submitRes(restaurant) {
+        $.post("/restaurants", yelpSearch, function() {
+          console.log("Restaurant added to database.");
+        });
+       });
 
       // GOOGLE DIRECTIONS API
       // console.log(userlatlng);
@@ -263,18 +288,17 @@ function initMap() {
       var directionsDisplay = new google.maps.DirectionsRenderer;
 
       function calculateAndDisplayRoute(directionsService, directionsDisplay) {
-
         directionsService.route(
           {
             origin: userlatlng.toString(),
             destination: restlatlng.toString(),
             travelMode: "DRIVING"
-            // icon: fFMapIcon,
-            // optimized: false
           },
           function(response, status) {
             if (status === "OK") {
               directionsDisplay.setDirections(response);
+              markerStart.setPosition(userLocation);
+              markerEnd.setPosition(restLocation);
             } else {
               window.alert("Directions request failed due to " + status);
             }
@@ -285,6 +309,6 @@ function initMap() {
       calculateAndDisplayRoute(directionsService, directionsDisplay);
       directionsDisplay.setMap(map);
     });
-  };
+  }
 }
-// console.log(initMap);
+console.log(initMap);

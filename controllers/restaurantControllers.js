@@ -25,7 +25,8 @@ exports.restaurantList = function(req, res) {
 exports.saveRestaurant = function(req, res) {
   var userId = req.user.id;
   var newId = req.body.id;
-
+  console.log(req.body);
+  console.log(req.user);
   db.Restaurant.create({
     yelpID: newId,
     UserId: userId

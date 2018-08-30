@@ -32,7 +32,7 @@ module.exports = function(app) {
       .then(function(response) {
         var firstResult = response.jsonBody.businesses[0];
         var prettyJson = JSON.stringify(firstResult, null, 4);
-        console.log(prettyJson);
+        //console.log(prettyJson);
         res.json(response.jsonBody.businesses);
       })
       .catch(function(error) {
@@ -42,18 +42,24 @@ module.exports = function(app) {
   /*----------- Routes for storing and viewing saved restaurants--------*/
 
   // Get all restaurants
-  router.get(
+  app.get(
     "api/restaurants",
     isLoggedIn,
     restaurantController.restaurantList
   );
 
   // Create a new restaurant
-  router.post(
-    "api/restaurants",
+  app.post(
+    "/restaurants",
     isLoggedIn,
     restaurantController.saveRestaurant
   );
+  // app.post("/api/restaurants", function(req, res) {
+  //   db.Restaurant.create(req.body).then(function(dbRestaurant) {
+  //     res.json(dbRestaurant);
+  //     console.log("Restaurant has been added to the database.")
+  //   });
+  // });
 
   // Delete a restaurant by id
   app.delete(
