@@ -45,7 +45,7 @@ module.exports = function(app) {
   app.get("/api/restaurants", isLoggedIn, restaurantController.restaurantList);
 
   // Create a new restaurant
-  app.post("/restaurants", isLoggedIn, restaurantController.saveRestaurant);
+  app.post("/api/restaurants", isLoggedIn, restaurantController.saveRestaurant);
 
   // Delete a restaurant by id
   app.delete(

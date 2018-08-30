@@ -11,7 +11,7 @@ $(document).ready(function() {
     console.log("Going to user profile");
     $.ajax({
       type: "GET",
-      url: "/api/restaurants",
+      url: "/user",
       success: function(result) {
         $("#div1").html(result);
       }

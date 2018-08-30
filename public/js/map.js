@@ -268,7 +268,7 @@ function initMap() {
         // });
 
         // function submitRes(restaurant) {
-        $.post("/restaurants", yelpSearch, function() {
+        $.post("/api/restaurants", yelpSearch, function() {
           console.log("Restaurant added to database.");
         });
       });
