@@ -47,24 +47,14 @@
                 <h6>Try Later</h6>
                 <div class="divider"></div>
                 <ul class="collection">
+                    {{#each restaurant}}
                     <li class="collection-item left-align">
-                        Restaurant #1
+                        {{this}}
                         <button class="delete red darken-3 waves-effect waves-light btn">
                             <i class="material-icons">clear</i>
                         </button>
                     </li>
-                    <li class="collection-item left-align">
-                        Restaurant #2
-                        <button class="delete red darken-3 waves-effect waves-light btn">
-                            <i class="material-icons">clear</i>
-                        </button>
-                    </li>
-                    <li class="collection-item left-align">
-                        Restaurant #3
-                        <button class="delete red darken-3 waves-effect waves-light btn">
-                            <i class="material-icons">clear</i>
-                        </button>
-                    </li>
+                    {{/each}}
                 </ul>
             </div>
             {{!-- <div class="col l4 m12 s12 animated fadeInUpBig">

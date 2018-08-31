@@ -205,6 +205,7 @@ function initMap() {
       // Data returns an array of 10 restaurant objects
       // create a yelpSearch variable that grabs a random restaurant from data array
       var yelpSearch = data[Math.floor(Math.random() * data.length)];
+      console.log(yelpSearch);
       restaurant.push(yelpSearch);
       // console.log(yelpSearch);
       restlatlng.push(
