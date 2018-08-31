@@ -167,6 +167,7 @@ var snazzy = [
   }
 ];
 
+
 var userLocation;
 var restaurant = [];
 var userlatlng = [];
@@ -176,7 +177,15 @@ var restlocation;
 // ============================== GOOGLE MAPS JAVASCRIPT API CALLBACK ===================== //
 
 // initMap function that gets called in the API link on Main.handlebars
+
 function initMap() {
+  //Declare local variables
+  var userLocation;
+  var restaurant = [];
+  var userlatlng = [];
+  var restlatlng = [];
+  var restlocation;
+
   //Get custom geolocation through html5 for map settings below
   function getLocation() {
     if (navigator.geolocation) {
@@ -247,7 +256,7 @@ function initMap() {
       //-----------------------------
       //Enable css styling for the google marker
       var myoverlay = new google.maps.OverlayView();
-      myoverlay.draw = function() {
+      myoverlay.draw = function () {
         //this assigns an id to the markerlayer Pane, so it can be referenced by CSS
         this.getPanes().markerLayer.id = "markerLayer";
       };
@@ -273,19 +282,12 @@ function initMap() {
 
       // BUTTON EVENT HANDLER
 
-      $("#tryLater").on("click", function(event) {
+      $("#tryLater").on("click", function (event) {
         event.preventDefault();
-
-        //   var newRestaurant = {
-        //     yelpID: yelpSearch.id,
-
-        //   };
-        //   console.log(newRestaurant);
-        //   submitRes(newRestaurant);
-        // });
-
-        // function submitRes(restaurant) {
-        $.post("/api/restaurants", yelpSearch, function() {
+        console.log("Restaurant added to database.");
+        var toastHTML = "<h6 class='teal z-depth-5 center-align right' style='padding:15px'>Restaurant added to User Profile.</h6>"
+        M.toast({html: toastHTML}, {displayLength: 4000})
+        $.post("/restaurants", yelpSearch, function () {
           console.log("Restaurant added to database.");
         });
       });
@@ -304,7 +306,7 @@ function initMap() {
             destination: restlatlng.toString(),
             travelMode: "DRIVING"
           },
-          function(response, status) {
+          function (response, status) {
             if (status === "OK") {
               directionsDisplay.setDirections(response);
               markerStart.setPosition(userLocation);
@@ -320,7 +322,15 @@ function initMap() {
       directionsDisplay.setMap(map);
     });
   }
+
   // Call getLocation which fires all nested functions
   getLocation();
+
+  $("#refresh-location").on("click", function () {
+
+    initMap();
+    console.log("Generating new restaurant.");
+  });
 }
 console.log(initMap);
+
