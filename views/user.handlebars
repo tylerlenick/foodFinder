@@ -46,11 +46,16 @@
                 <!-- DID NOT LIKE RESTAURANTS -->
                 <h6>Try Later</h6>
                 <div class="divider"></div>
-                <div class="collection">
-                    <a href="#!" class="collection-item">Restaurant #1</a>
-                    <a href="#!" class="collection-item active">Restaurant #2</a>
-                    <a href="#!" class="collection-item">Restaurant #3</a>
-                </div>
+                <ul class="collection">
+                    {{#each restaurant}}
+                    <li class="collection-item left-align">
+                        {{this}}
+                        <button class="delete red darken-3 waves-effect waves-light btn">
+                            <i class="material-icons">clear</i>
+                        </button>
+                    </li>
+                    {{/each}}
+                </ul>
             </div>
             {{!-- <div class="col l4 m12 s12 animated fadeInUpBig">
                 <!-- DID NOT LIKE RESTAURANTS -->

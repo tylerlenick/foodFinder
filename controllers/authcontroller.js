@@ -5,7 +5,10 @@ exports.signup = function(req, res) {
 };
 
 exports.signin = function(req, res) {
-  res.render("signin");
+  var hbsObject = {
+    message: "This is error message"
+  };
+  res.render("index", hbsObject);
 };
 
 exports.dashboard = function(req, res) {

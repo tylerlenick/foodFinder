@@ -167,6 +167,17 @@ var snazzy = [
   }
 ];
 
+
+var userLocation;
+var restaurant = [];
+var userlatlng = [];
+var restlatlng = [];
+var restlocation;
+
+// ============================== GOOGLE MAPS JAVASCRIPT API CALLBACK ===================== //
+
+// initMap function that gets called in the API link on Main.handlebars
+
 function initMap() {
   //Declare local variables
   var userLocation;
@@ -178,25 +189,32 @@ function initMap() {
   //Get custom geolocation through html5 for map settings below
   function getLocation() {
     if (navigator.geolocation) {
+      // Nest showPosition inside getLocation
       navigator.geolocation.getCurrentPosition(showPosition);
     } else {
       console.log("Geolocation is not supported by this browser.");
     }
   }
-  getLocation();
 
+  // Show position function renders user's location too nested Google Maps HTTP requests
   function showPosition(position) {
+    // user's current latitude and longitude
     var lati = position.coords.latitude;
     var long = position.coords.longitude;
 
+    // push user's position into global userlatlng array for reference outside initMap
     userlatlng.push(lati, long);
+    // userLocation object for Maps renderer
     userLocation = { lat: lati, lng: long };
 
     // =================== YELP ================= //
 
-    $.post("/api/yelp", { latitude: lati, longitude: long }, function (data) {
-      // console.log(data);
+    // Client side POST request to stored back end API built for App
+    $.post("/api/yelp", { latitude: lati, longitude: long }, function(data) {
+      // Data returns an array of 10 restaurant objects
+      // create a yelpSearch variable that grabs a random restaurant from data array
       var yelpSearch = data[Math.floor(Math.random() * data.length)];
+      console.log(yelpSearch);
       restaurant.push(yelpSearch);
       // console.log(yelpSearch);
       restlatlng.push(
@@ -278,8 +296,8 @@ function initMap() {
       // console.log(userlatlng);
       // console.log(restlatlng);
 
-      var directionsService = new google.maps.DirectionsService;
-      var directionsDisplay = new google.maps.DirectionsRenderer;
+      var directionsService = new google.maps.DirectionsService();
+      var directionsDisplay = new google.maps.DirectionsRenderer();
 
       function calculateAndDisplayRoute(directionsService, directionsDisplay) {
         directionsService.route(
@@ -304,6 +322,10 @@ function initMap() {
       directionsDisplay.setMap(map);
     });
   }
+
+  // Call getLocation which fires all nested functions
+  getLocation();
+
   $("#refresh-location").on("click", function () {
 
     initMap();
