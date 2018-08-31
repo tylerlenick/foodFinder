@@ -11,7 +11,6 @@ var keys = require("../public/js/keys");
 var yelp = require("yelp-fusion");
 var client = yelp.client(keys.yelp);
 
-
 if (config.use_env_variable) {
   var sequelize = new Sequelize(process.env[config.use_env_variable]);
 } else {
