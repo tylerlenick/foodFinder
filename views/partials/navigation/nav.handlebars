@@ -1,24 +1,29 @@
   <div class="nav-wrapper">
-    {{!-- <a href="#!" class="brand-logo">Food Finder</a> --}}
+    <!--Logo area-->
     <div class="brand-logo">
-      <img id="logo" src="/images/Logo-Export/Food-Finder-Logo.png" href="/">
+      <a href="/"><img id="logo" src="/images/Logo-Export/Food-Finder-Logo.png"></a>
     </div>
     <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    <!--Navigation items below-->
     <ul class="right hide-on-med-and-down">
-      <li><button id="my-profile" class="waves-effect waves-teal btn-flat nav-item">My Profile</button></li>
-      <li><a href="/logout" id="signout-btn">Sign Out</a></li>
+      <li>
+        <button id="my-profile" class="waves-effect waves-teal btn-flat nav-item">My Profile</button>
+      </li>
+      <li>
+        <button id="sign-out" class="waves-effect waves-teal btn-flat nav-item">Sign Out</button>
+      </li>
     </ul>
   </div>
-  <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-  <ul class="right hide-on-med-and-down">
-    <li><a href="/logout"><h3 class="nav-item">Log Out</h3></a></li>
-  </ul>
 </div>
 
 <!--Mobile Navigation-->
 <ul class="sidenav" id="mobile-demo">
-  <li><a href="sass.html"><h3>My Profile</h3></a></li>
-  <li><a href="badges.html"><h3>Log Out</h3></a></li>
+  <li class="mn-li-item">
+    <button id="my-profile" class="waves-effect waves-teal btn-flat nav-item">My Profile</button>
+  </li>
+  <li class="mn-li-item">
+    <button id="sign-out" class="waves-effect waves-teal btn-flat nav-item">Sign Out</button>
+  </li>
 </ul>
 
 <script src="/js/map.js"></script>

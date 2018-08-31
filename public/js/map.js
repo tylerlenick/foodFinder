@@ -167,19 +167,8 @@ var snazzy = [
   }
 ];
 
-
-var userLocation;
-var restaurant = [];
-var userlatlng = [];
-var restlatlng = [];
-var restlocation;
-
-// ============================== GOOGLE MAPS JAVASCRIPT API CALLBACK ===================== //
-
-// initMap function that gets called in the API link on Main.handlebars
-
 function initMap() {
-  //Declare local variables
+
   var userLocation;
   var restaurant = [];
   var userlatlng = [];
@@ -211,77 +200,79 @@ function initMap() {
 
     // Client side POST request to stored back end API built for App
     $.post("/api/yelp", { latitude: lati, longitude: long }, function(data) {
+      //Push a random retaurant into the restaurant array
       // Data returns an array of 10 restaurant objects
       // create a yelpSearch variable that grabs a random restaurant from data array
       var yelpSearch = data[Math.floor(Math.random() * data.length)];
       console.log(yelpSearch);
       restaurant.push(yelpSearch);
-      // console.log(yelpSearch);
+      //Push the restaurant coordintes into the restlatlng array
       restlatlng.push(
         yelpSearch.coordinates.latitude,
         yelpSearch.coordinates.longitude
       );
-
+      //Define the restaurant location as an object with the coordinates
       var restLocation = {
         lat: yelpSearch.coordinates.latitude,
         lng: yelpSearch.coordinates.longitude
       };
 
-      //Initialize google map with styling & marker
-      map = new google.maps.Map(document.getElementById("map"), {
-        center: restLocation,
-        disableDefaultUI: true,
-        styles: snazzy,
-        zoom: 10
-        //   gestureHandling: "none"
-      });
-
-      var endIcon = "../images/Logo-Export/Food-Finder-Map-Marker.png";
-      var startIcon = "../images/Logo-Export/FF-User-Icon.png";
-
-      var markerStart = new google.maps.Marker({
-        map: map,
-        icon: startIcon,
-        zIndex: 210,
-        optimized: false,
-        animation: google.maps.Animation.DROP
-      });
-      var markerEnd = new google.maps.Marker({
-        map: map,
-        icon: endIcon,
-        zIndex: 210,
-        optimized: false,
-        animation: google.maps.Animation.DROP
-      });
-      //-----------------------------
-      //Enable css styling for the google marker
-      var myoverlay = new google.maps.OverlayView();
-      myoverlay.draw = function () {
-        //this assigns an id to the markerlayer Pane, so it can be referenced by CSS
-        this.getPanes().markerLayer.id = "markerLayer";
-      };
-      myoverlay.setMap(map);
-      //-----------------------------
-
       // DISPLAY RESTAURANT DATA ON PAGE
       $("#rest-name").html(yelpSearch.name);
       $("#rest-city").html(yelpSearch.location.city);
-      $("#rest-rating").html("Rating: " + yelpSearch.rating);
-      $("#rest-price").html("Price: " + yelpSearch.price);
-      $("#rest-review").html("Review Count: " + yelpSearch.review_count);
+      //Breakup the titles and stats to style them
+      //Rating
+      var yelpRating = $("<p>").attr("class", "ratingStat").text(yelpSearch.rating);
+      // var ratingTitle = $("<p>").attr("class", "rating-title");
+      $("#rest-rating").append(yelpRating);
+      //Price
+      var yelpPrice = $("<p>").attr("class", "ratingStat").text(yelpSearch.price);
+      $("#rest-price").append(yelpPrice);
+      //ReviewCount
+      var yelpReview = $("<p>").attr("class", "ratingStat").text(yelpSearch.review_count);
+      $("#rest-review").append(yelpReview);
+      //Load yelp image
       $("#rest-image").attr("src", yelpSearch.image_url);
+      //Restaurant OPEN or CLOSED
       if (yelpSearch.is_closed === false) {
-        $("#rest-open").html("Currently: OPEN");
+        var open = $("<p>").attr("class", "statusOpen").text("open");
+        var currently = $("<p>").attr("class", "status-title").text("currently");
+        $("#rest-open").append(currently);
+        $("#rest-open").append(open);
       } else {
-        $("#rest-open").html("Currently: CLOSED");
+        var closed = $("<p>").attr("class", "statusClosed").text("closed");
+        var currently = $("<p>").attr("class", "status-title").text("currently");
+        $("#rest-open").append(currently);
+        $("#rest-open").append(open);
       }
-      $("#rest-phone").html("Phone:" + yelpSearch.display_phone);
-      $("#rest-type-1").html(yelpSearch.categories[0].title);
-      $("#rest-type-2").html(yelpSearch.categories[1].title);
-      $("#rest-address").html(yelpSearch.location.display_address);
-
-      // BUTTON EVENT HANDLER
-
+      //Phone # Styling
+      var phone = $("<p>").attr("class", "status-title").text("phone");
+      var yelpPhone = $("<p>").attr("class", "yelpPhone").text(yelpSearch.display_phone);
+      $("#rest-phone").append(phone);
+      $("#rest-phone").append(yelpPhone);
+      //Populates the restaurant category type regardless of how many there are
+      console.log(yelpSearch.categories);
+      for (var i = 0; i < yelpSearch.categories.length; i++) {
+        var badgeSpan = $("<div>").attr("class", "new badge");
+        var badgeText = $("<p>").attr("class", "p-small");
+        var badgeType = yelpSearch.categories[i].alias;
+        badgeText.append(badgeType);
+        badgeSpan.append(badgeText);
+        //Targets the holder div where the badges go
+        $("#rest-type").append(badgeSpan);
+        console.log(badgeSpan);
+        console.log(badgeText);
+        console.log(badgeType);
+      }
+      //Address breakdown
+      var addressTitle = $("<p>").attr("class", "status-title").text("Address");
+      var address1 = $("<h5>").text(yelpSearch.location.display_address[0]);
+      var address2 = $("<h5>").text(yelpSearch.location.display_address[1]);
+      $("#rest-address").html(addressTitle);
+      $("#rest-address").append(address1);
+      $("#rest-address").append(address2);
+      
+      //Button event handler
       $("#tryLater").on("click", function (event) {
         event.preventDefault();
         console.log("Restaurant added to database.");
@@ -292,10 +283,24 @@ function initMap() {
         });
       });
 
-      // GOOGLE DIRECTIONS API
-      // console.log(userlatlng);
-      // console.log(restlatlng);
+      //Initialize google map
+      map = new google.maps.Map(document.getElementById("map"), {
+        center: restLocation,
+        disableDefaultUI: true,
+        styles: snazzy,
+        zoom: 10
+        //   gestureHandling: "none"
+      });
 
+      //Enable css styling for the google markers
+      var myoverlay = new google.maps.OverlayView();
+      myoverlay.draw = function() {
+        //this assigns an id to the markerlayer Pane, so it can be referenced by CSS
+        this.getPanes().markerLayer.id = "markerLayer";
+      };
+      myoverlay.setMap(map);
+
+      // Google directions api
       var directionsService = new google.maps.DirectionsService();
       var directionsDisplay = new google.maps.DirectionsRenderer();
 
@@ -306,17 +311,56 @@ function initMap() {
             destination: restlatlng.toString(),
             travelMode: "DRIVING"
           },
-          function (response, status) {
+          function(response, status) {
             if (status === "OK") {
-              directionsDisplay.setDirections(response);
-              markerStart.setPosition(userLocation);
-              markerEnd.setPosition(restLocation);
+              new google.maps.DirectionsRenderer({
+                map: map,
+                directions: response,
+                suppressMarkers: true
+              });
+              var leg = response.routes[0].legs[0];
+              makeMarker(leg.start_location, icons.start, "title", map);
+              makeMarker(leg.end_location, icons.end, "title", map);
             } else {
               window.alert("Directions request failed due to " + status);
             }
           }
         );
       }
+
+      // Set the marker locations
+      function makeMarker(position, icon, title, map) {
+        new google.maps.Marker({
+          position: position,
+          map: map,
+          icon: icon,
+          title: title
+        });
+      }
+
+      //Stylize the icons
+      var icons = {
+        start: new google.maps.MarkerImage(
+          // URL
+          "../images/Logo-Export/FF-User-Icon.png",
+          // (width,height)
+          new google.maps.Size(62, 61),
+          // The origin point (x,y)
+          new google.maps.Point(0, 0),
+          // The anchor point (x,y)
+          new google.maps.Point(22, 32)
+        ),
+        end: new google.maps.MarkerImage(
+          // URL
+          "../images/Logo-Export/Food-Finder-Map-Marker.png",
+          // (width,height)
+          new google.maps.Size(51, 69),
+          // The origin point (x,y)
+          new google.maps.Point(0, 0),
+          // The anchor point (x,y)
+          new google.maps.Point(22, 32)
+        )
+      };
 
       calculateAndDisplayRoute(directionsService, directionsDisplay);
       directionsDisplay.setMap(map);
@@ -333,4 +377,3 @@ function initMap() {
   });
 }
 console.log(initMap);
-
