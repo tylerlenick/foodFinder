@@ -4,6 +4,7 @@ var exports = (module.exports = {});
 //Retrieve
 exports.restaurantList = function(req, res) {
   var user = req.user;
+  console.log(user);
   //Find all stored restaurants for logged in user
   db.Restaurant.findAll({
     where: {
@@ -15,9 +16,13 @@ exports.restaurantList = function(req, res) {
     for (var i = 1; i < results.length; i++) {
       usersStoredRestaurants.push(results[i]);
     }
-
+    var hbsObj = {
+      user: user,
+      restaurants: usersStoredRestaurants
+    };
+    console.log(hbsObj);
     //render to handlebars
-    res.render("/user/" + user.id, { restaurants: results.id });
+    res.render("user", hbsObj);
   });
 };
 
@@ -25,10 +30,12 @@ exports.restaurantList = function(req, res) {
 exports.saveRestaurant = function(req, res) {
   var userId = req.user.id;
   var newId = req.body.id;
+  var restaurantName = req.body.name;
   console.log(req.body);
   console.log(req.user);
   db.Restaurant.create({
     yelpID: newId,
+    name: restaurantName,
     UserId: userId
   }).then(function(errors) {
     if (errors) {
