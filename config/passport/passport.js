@@ -64,13 +64,19 @@ module.exports = function(passport, user) {
             email: email
           }
         })
-          .then(function(user) {
+          .then(function(err, user) {
+            if (err) {
+              console.log("test err");
+              return done(err);
+            }
             if (!user) {
+              console.log("test no user");
               return done(null, false, {
                 message: "Email does not exist"
               });
             }
             if (!isValidPassword(user.password, password)) {
+              console.log("test no password");
               return done(null, false, {
                 message: "Incorrect password."
               });

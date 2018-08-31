@@ -22,7 +22,7 @@ module.exports = function(app, passport) {
     passport.authenticate("local-signin", {
       successRedirect: "/map",
       failureRedirect: "/",
-      failureFlash: "no user found! sign up!"
+      failureFlash: true
     })
   );
 
