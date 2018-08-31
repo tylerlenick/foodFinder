@@ -11,10 +11,7 @@ $(document).ready(function() {
     console.log("Going to user profile");
     $.ajax({
       type: "GET",
-      url: "/api/restaurants",
-      success: function(result) {
-        $("#div1").html(result);
-      }
+      url: "/api/restaurants"
     });
   });
 });

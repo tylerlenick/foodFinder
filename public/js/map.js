@@ -178,25 +178,33 @@ function initMap() {
   //Get custom geolocation through html5 for map settings below
   function getLocation() {
     if (navigator.geolocation) {
+      // Nest showPosition inside getLocation
       navigator.geolocation.getCurrentPosition(showPosition);
     } else {
       console.log("Geolocation is not supported by this browser.");
     }
   }
-  getLocation();
 
+  // Show position function renders user's location too nested Google Maps HTTP requests
   function showPosition(position) {
+    // user's current latitude and longitude
     var lati = position.coords.latitude;
     var long = position.coords.longitude;
 
+    // push user's position into global userlatlng array for reference outside initMap
     userlatlng.push(lati, long);
+    // userLocation object for Maps renderer
     userLocation = { lat: lati, lng: long };
 
     // =================== YELP ================= //
 
+    // Client side POST request to stored back end API built for App
     $.post("/api/yelp", { latitude: lati, longitude: long }, function(data) {
       //Push a random retaurant into the restaurant array
+      // Data returns an array of 10 restaurant objects
+      // create a yelpSearch variable that grabs a random restaurant from data array
       var yelpSearch = data[Math.floor(Math.random() * data.length)];
+      console.log(yelpSearch);
       restaurant.push(yelpSearch);
       //Push the restaurant coordintes into the restlatlng array
       restlatlng.push(
@@ -263,11 +271,14 @@ function initMap() {
       $("#rest-address").html(addressTitle);
       $("#rest-address").append(address1);
       $("#rest-address").append(address2);
-
-      // BUTTON EVENT HANDLER
-      $("#tryLater").on("click", function(event) {
+      
+      //Button event handler
+      $("#tryLater").on("click", function (event) {
         event.preventDefault();
-        $.post("/restaurants", yelpSearch, function() {
+        console.log("Restaurant added to database.");
+        var toastHTML = "<h6 class='teal z-depth-5 center-align right' style='padding:15px'>Restaurant added to User Profile.</h6>"
+        M.toast({html: toastHTML}, {displayLength: 4000})
+        $.post("/restaurants", yelpSearch, function () {
           console.log("Restaurant added to database.");
         });
       });
@@ -290,8 +301,8 @@ function initMap() {
       myoverlay.setMap(map);
 
       // Google directions api
-      var directionsService = new google.maps.DirectionsService;
-      var directionsDisplay = new google.maps.DirectionsRenderer;
+      var directionsService = new google.maps.DirectionsService();
+      var directionsDisplay = new google.maps.DirectionsRenderer();
 
       function calculateAndDisplayRoute(directionsService, directionsDisplay) {
         directionsService.route(
@@ -308,8 +319,8 @@ function initMap() {
                 suppressMarkers: true
               });
               var leg = response.routes[0].legs[0];
-              makeMarker(leg.start_location, icons.start, 'title', map);
-              makeMarker(leg.end_location, icons.end, 'title', map);
+              makeMarker(leg.start_location, icons.start, "title", map);
+              makeMarker(leg.end_location, icons.end, "title", map);
             } else {
               window.alert("Directions request failed due to " + status);
             }
@@ -356,8 +367,13 @@ function initMap() {
     });
   }
 
-  $("#refresh-location").on("click", function() {
+  // Call getLocation which fires all nested functions
+  getLocation();
+
+  $("#refresh-location").on("click", function () {
+
     initMap();
+    console.log("Generating new restaurant.");
   });
 }
 console.log(initMap);
