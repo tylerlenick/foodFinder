@@ -1,6 +1,7 @@
 module.exports = function(sequelize, DataTypes) {
   var Restaurant = sequelize.define("Restaurant", {
-    yelpID: DataTypes.STRING
+    yelpID: DataTypes.STRING,
+    name: DataTypes.STRING
   });
 
   Restaurant.associate = function(models) {

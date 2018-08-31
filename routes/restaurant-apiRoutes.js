@@ -3,8 +3,6 @@ var db = require("../models");
 var keys = require("../public/js/keys");
 var yelp = require("yelp-fusion");
 var client = yelp.client(keys.yelp.apiKey);
-var express = require("express");
-var router = express.Router();
 var restaurantController = require("../controllers/restaurantControllers");
 
 module.exports = function(app) {
@@ -42,10 +40,10 @@ module.exports = function(app) {
   /*----------- Routes for storing and viewing saved restaurants--------*/
 
   // Get all restaurants
-  app.get("/api/restaurants", isLoggedIn, restaurantController.restaurantList);
+  app.get("/api/restaurants", restaurantController.restaurantList);
 
   // Create a new restaurant
-  app.post("/restaurants", isLoggedIn, restaurantController.saveRestaurant);
+  app.post("/api/restaurants", isLoggedIn, restaurantController.saveRestaurant);
 
   // Delete a restaurant by id
   app.delete(
