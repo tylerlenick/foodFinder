@@ -275,8 +275,7 @@ function initMap() {
       //Button event handler
       $("#tryLater").on("click", function (event) {
         event.preventDefault();
-        console.log("Restaurant added to database.");
-        var toastHTML = "<h6 class='teal z-depth-5 center-align right' style='padding:15px'>Restaurant added to User Profile.</h6>"
+        var toastHTML = "<h6 id='toast' class='teal z-depth-5 center-align' style='border-radius: 3px; padding:25px'>Restaurant added to User Profile.</h6>"
         M.toast({html: toastHTML}, {displayLength: 4000})
         $.post("/restaurants", yelpSearch, function () {
           console.log("Restaurant added to database.");
