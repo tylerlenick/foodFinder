@@ -282,7 +282,7 @@ function initMap() {
         event.preventDefault();
         var toastHTML = "<h6 id='toast' class='teal z-depth-5 center-align' style='border-radius: 3px; padding:25px'>Restaurant added to User Profile.</h6>"
         M.toast({html: toastHTML}, {displayLength: 4000})
-        $.post("/restaurants", yelpSearch, function () {
+        $.post("/api/restaurants", yelpSearch, function () {
           console.log("Restaurant added to database.");
         });
       });
