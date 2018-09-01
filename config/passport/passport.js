@@ -64,11 +64,7 @@ module.exports = function(passport, user) {
             email: email
           }
         })
-          .then(function(err, user) {
-            if (err) {
-              console.log("test err");
-              return done(err);
-            }
+          .then(function(user) {
             if (!user) {
               console.log("test no user");
               return done(null, false, {

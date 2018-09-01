@@ -20,9 +20,10 @@ exports.restaurantList = function(req, res) {
       user: user,
       restaurants: usersStoredRestaurants
     };
-    console.log("line 23 restaurantcontroller", hbsObj);
+    console.log("===========HBSOBJECT===============");
+    console.log(hbsObj.restaurants[0].dataValues);
     //render to handlebars
-    res.render("user", hbsObj);
+    res.json(hbsObj);
   });
 };
 
