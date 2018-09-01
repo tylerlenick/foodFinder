@@ -167,8 +167,11 @@ var snazzy = [
   }
 ];
 
-function initMap() {
+// ============================== GOOGLE MAPS JAVASCRIPT API CALLBACK ===================== //
 
+// initMap function that gets called in the API link on Main.handlebars
+
+function initMap() {
   var userLocation;
   var restaurant = [];
   var userlatlng = [];
@@ -217,37 +220,91 @@ function initMap() {
         lng: yelpSearch.coordinates.longitude
       };
 
+      //Initialize google map with styling & marker
+      map = new google.maps.Map(document.getElementById("map"), {
+        center: restLocation,
+        disableDefaultUI: true,
+        styles: snazzy,
+        zoom: 10
+        //   gestureHandling: "none"
+      });
+
+      var endIcon = "../images/Logo-Export/Food-Finder-Map-Marker.png";
+      var startIcon = "../images/Logo-Export/FF-User-Icon.png";
+
+      var markerStart = new google.maps.Marker({
+        map: map,
+        icon: startIcon,
+        zIndex: 210,
+        optimized: false,
+        animation: google.maps.Animation.DROP
+      });
+      var markerEnd = new google.maps.Marker({
+        map: map,
+        icon: endIcon,
+        zIndex: 210,
+        optimized: false,
+        animation: google.maps.Animation.DROP
+      });
+      //-----------------------------
+      //Enable css styling for the google marker
+      var myoverlay = new google.maps.OverlayView();
+      myoverlay.draw = function() {
+        //this assigns an id to the markerlayer Pane, so it can be referenced by CSS
+        this.getPanes().markerLayer.id = "markerLayer";
+      };
+      myoverlay.setMap(map);
+      //-----------------------------
+
       // DISPLAY RESTAURANT DATA ON PAGE
       $("#rest-name").html(yelpSearch.name);
       $("#rest-city").html(yelpSearch.location.city);
       //Breakup the titles and stats to style them
       //Rating
-      var yelpRating = $("<p>").attr("class", "ratingStat").text(yelpSearch.rating);
+      var yelpRating = $("<p>")
+        .attr("class", "ratingStat")
+        .text(yelpSearch.rating);
       // var ratingTitle = $("<p>").attr("class", "rating-title");
       $("#rest-rating").append(yelpRating);
       //Price
-      var yelpPrice = $("<p>").attr("class", "ratingStat").text(yelpSearch.price);
+      var yelpPrice = $("<p>")
+        .attr("class", "ratingStat")
+        .text(yelpSearch.price);
       $("#rest-price").append(yelpPrice);
       //ReviewCount
-      var yelpReview = $("<p>").attr("class", "ratingStat").text(yelpSearch.review_count);
+      var yelpReview = $("<p>")
+        .attr("class", "ratingStat")
+        .text(yelpSearch.review_count);
       $("#rest-review").append(yelpReview);
       //Load yelp image
       $("#rest-image").attr("src", yelpSearch.image_url);
       //Restaurant OPEN or CLOSED
       if (yelpSearch.is_closed === false) {
-        var open = $("<p>").attr("class", "statusOpen").text("open");
-        var currently = $("<p>").attr("class", "status-title").text("currently");
+        var open = $("<p>")
+          .attr("class", "statusOpen")
+          .text("open");
+        var currently = $("<p>")
+          .attr("class", "status-title")
+          .text("currently");
         $("#rest-open").append(currently);
         $("#rest-open").append(open);
       } else {
-        var closed = $("<p>").attr("class", "statusClosed").text("closed");
-        var currently = $("<p>").attr("class", "status-title").text("currently");
+        var closed = $("<p>")
+          .attr("class", "statusClosed")
+          .text("closed");
+        var currently = $("<p>")
+          .attr("class", "status-title")
+          .text("currently");
         $("#rest-open").append(currently);
         $("#rest-open").append(open);
       }
       //Phone # Styling
-      var phone = $("<p>").attr("class", "status-title").text("phone");
-      var yelpPhone = $("<p>").attr("class", "yelpPhone").text(yelpSearch.display_phone);
+      var phone = $("<p>")
+        .attr("class", "status-title")
+        .text("phone");
+      var yelpPhone = $("<p>")
+        .attr("class", "yelpPhone")
+        .text(yelpSearch.display_phone);
       $("#rest-phone").append(phone);
       $("#rest-phone").append(yelpPhone);
       //Populates the restaurant category type regardless of how many there are
@@ -265,21 +322,25 @@ function initMap() {
         console.log(badgeType);
       }
       //Address breakdown
-      var addressTitle = $("<p>").attr("class", "status-title").text("Address");
+      var addressTitle = $("<p>")
+        .attr("class", "status-title")
+        .text("Address");
       var address1 = $("<h5>").text(yelpSearch.location.display_address[0]);
       var address2 = $("<h5>").text(yelpSearch.location.display_address[1]);
       $("#rest-address").html(addressTitle);
       $("#rest-address").append(address1);
       $("#rest-address").append(address2);
-      
+
       //Button event handler
-      $("#tryLater").on("click", function (event) {
+      $("#tryLater").on("click", function(event) {
         event.preventDefault();
-        var toastHTML = "<h6 id='toast' class='teal z-depth-5 center-align' style='border-radius: 3px; padding:25px'>Restaurant added to User Profile.</h6>"
-        M.toast({html: toastHTML}, {displayLength: 4000})
-        $.post("/restaurants", yelpSearch, function () {
+        var toastHTML =
+          "<h6 id='toast' class='teal z-depth-5 center-align' style='border-radius: 3px; padding:25px'>Restaurant added to User Profile.</h6>";
+        M.toast({ html: toastHTML }, { displayLength: 4000 });
+        $.post("/api/restaurants", yelpSearch, function() {
           console.log("Restaurant added to database.");
         });
+        M.toast({ html: null });
       });
 
       //Initialize google map
@@ -301,7 +362,9 @@ function initMap() {
 
       // Google directions api
       var directionsService = new google.maps.DirectionsService();
-      var directionsDisplay = new google.maps.DirectionsRenderer();
+      var directionsDisplay = new google.maps.DirectionsRenderer({
+        suppressMarkers: true
+      });
 
       function calculateAndDisplayRoute(directionsService, directionsDisplay) {
         directionsService.route(
@@ -368,11 +431,42 @@ function initMap() {
 
   // Call getLocation which fires all nested functions
   getLocation();
-
-  $("#refresh-location").on("click", function () {
-
-    initMap();
-    console.log("Generating new restaurant.");
-  });
 }
 console.log(initMap);
+
+$("#refresh-location").on("click", function() {
+  //Clear arrays where information was pushed
+  var userLocation;
+  var restaurant = [];
+  var userlatlng = [];
+  var restlatlng = [];
+  var restlocation;
+
+  //Clear a shit-ton of stuff, so it doesn't re-load again
+  $("#rest-name").html(" ");
+
+  $("#rest-city").html(" ");
+
+  $("#rest-rating").html(" ");
+
+  $("#rest-price").html(" ");
+
+  $("#rest-review").html(" ");
+
+  $("#rest-image").attr("src", " ");
+
+  $("#rest-open").html(" ");
+
+  $("#rest-open").html(" ");
+
+  $("#rest-phone").html(" ");
+
+  $("#rest-phone").html(" ");
+
+  $("#rest-type").html(" ");
+
+  $("#rest-address").html(" ");
+
+  initMap();
+  console.log("Generating new restaurant.");
+});
