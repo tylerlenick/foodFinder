@@ -168,7 +168,7 @@ var snazzy = [
 ];
 
 function initMap() {
-
+  //Set up arrays and variables to hold information
   var userLocation;
   var restaurant = [];
   var userlatlng = [];
@@ -184,9 +184,12 @@ function initMap() {
       console.log("Geolocation is not supported by this browser.");
     }
   }
+  // Call getLocation which fires all nested functions
+  getLocation();
 
   // Show position function renders user's location too nested Google Maps HTTP requests
   function showPosition(position) {
+
     // user's current latitude and longitude
     var lati = position.coords.latitude;
     var long = position.coords.longitude;
@@ -224,42 +227,44 @@ function initMap() {
       //Rating
       var yelpRating = $("<p>").attr("class", "ratingStat").text(yelpSearch.rating);
       // var ratingTitle = $("<p>").attr("class", "rating-title");
-      $("#rest-rating").append(yelpRating);
+      $("#rest-rating").html(yelpRating);
       //Price
       var yelpPrice = $("<p>").attr("class", "ratingStat").text(yelpSearch.price);
-      $("#rest-price").append(yelpPrice);
+      $("#rest-price").html(yelpPrice);
       //ReviewCount
       var yelpReview = $("<p>").attr("class", "ratingStat").text(yelpSearch.review_count);
-      $("#rest-review").append(yelpReview);
+      $("#rest-review").html(yelpReview);
       //Load yelp image
       $("#rest-image").attr("src", yelpSearch.image_url);
       //Restaurant OPEN or CLOSED
+
       if (yelpSearch.is_closed === false) {
+        var closed = $("<p>").attr("class", "statusClosed").text("closed");
         var open = $("<p>").attr("class", "statusOpen").text("open");
         var currently = $("<p>").attr("class", "status-title").text("currently");
-        $("#rest-open").append(currently);
-        $("#rest-open").append(open);
+        $("#rest-open").html(currently);
+        $("#rest-open").html(open);
       } else {
-        var closed = $("<p>").attr("class", "statusClosed").text("closed");
-        var currently = $("<p>").attr("class", "status-title").text("currently");
-        $("#rest-open").append(currently);
-        $("#rest-open").append(open);
+        $("#rest-open").html(currently);
+        $("#rest-open").html(open);
       }
       //Phone # Styling
       var phone = $("<p>").attr("class", "status-title").text("phone");
       var yelpPhone = $("<p>").attr("class", "yelpPhone").text(yelpSearch.display_phone);
-      $("#rest-phone").append(phone);
-      $("#rest-phone").append(yelpPhone);
+      $("#rest-phone").html(phone);
+      $("#rest-phone").html(yelpPhone);
+
       //Populates the restaurant category type regardless of how many there are
       console.log(yelpSearch.categories);
       for (var i = 0; i < yelpSearch.categories.length; i++) {
         var badgeSpan = $("<div>").attr("class", "new badge");
         var badgeText = $("<p>").attr("class", "p-small");
         var badgeType = yelpSearch.categories[i].alias;
-        badgeText.append(badgeType);
-        badgeSpan.append(badgeText);
+        badgeText.html(badgeType);
+        badgeSpan.html(badgeText);
+
         //Targets the holder div where the badges go
-        $("#rest-type").append(badgeSpan);
+        $("#rest-type").html(badgeSpan);
         console.log(badgeSpan);
         console.log(badgeText);
         console.log(badgeType);
@@ -273,7 +278,7 @@ function initMap() {
       $("#rest-address").append(address2);
       
       //Button event handler
-      $("#tryLater").on("click", function (event) {
+      $("#tryLater").on("click", function(event) {
         event.preventDefault();
         var toastHTML = "<h6 id='toast' class='teal z-depth-5 center-align' style='border-radius: 3px; padding:25px'>Restaurant added to User Profile.</h6>"
         M.toast({html: toastHTML}, {displayLength: 4000})
@@ -328,7 +333,7 @@ function initMap() {
       }
 
       // Set the marker locations
-      function makeMarker(position, icon, title, map) {
+      var makeMarker = function(position, icon, title, map) {
         new google.maps.Marker({
           position: position,
           map: map,
@@ -365,14 +370,49 @@ function initMap() {
       directionsDisplay.setMap(map);
     });
   }
-
-  // Call getLocation which fires all nested functions
-  getLocation();
-
-  $("#refresh-location").on("click", function () {
-
-    initMap();
-    console.log("Generating new restaurant.");
-  });
 }
 console.log(initMap);
+
+$("#refresh-location").on("click", function() {
+  //Clear arrays where information was pushed
+  var userLocation;
+  var restaurant = [];
+  var userlatlng = [];
+  var restlatlng = [];
+  var restlocation;
+
+  //Clear markers when this function is called
+  // Set the marker locations
+  // directionsDisplay.setDirections({routes: []});
+
+  // var directionsService = new google.maps.DirectionsService(null);
+  // var directionsDisplay = new google.maps.DirectionsRenderer(null);
+
+  //Clear a shit-ton of stuff, so it doesn't re-load again
+  $("#rest-name").html(" ");
+
+  $("#rest-city").html(" ");
+
+  $("#rest-rating").html(" ");
+
+  $("#rest-price").html(" ");
+
+  $("#rest-review").html(" ");
+
+  $("#rest-image").attr("src", " ");
+
+  $("#rest-open").html(" ");
+
+  $("#rest-open").html(" ");
+
+  $("#rest-phone").html(" ");
+
+  $("#rest-phone").html(" ");
+
+  $("#rest-type").html(" ");
+
+  $("#rest-address").html(" ");
+
+  initMap();
+  console.log("Generating new restaurant.");
+});
