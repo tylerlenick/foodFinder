@@ -13,8 +13,6 @@ module.exports = function(app, passport) {
     })
   );
 
-  app.get("/dashboard", isLoggedIn, authController.dashboard);
-
   app.get("/logout", authController.logout);
 
   app.post(
@@ -25,12 +23,4 @@ module.exports = function(app, passport) {
       failureFlash: true
     })
   );
-
-  function isLoggedIn(req, res, next) {
-    if (req.isAuthenticated()) {
-      return next();
-    }
-
-    res.redirect("/signin");
-  }
 };

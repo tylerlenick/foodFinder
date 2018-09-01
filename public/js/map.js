@@ -167,8 +167,11 @@ var snazzy = [
   }
 ];
 
+// ============================== GOOGLE MAPS JAVASCRIPT API CALLBACK ===================== //
+
+// initMap function that gets called in the API link on Main.handlebars
+
 function initMap() {
-  //Set up arrays and variables to hold information
   var userLocation;
   var restaurant = [];
   var userlatlng = [];
@@ -189,7 +192,6 @@ function initMap() {
 
   // Show position function renders user's location too nested Google Maps HTTP requests
   function showPosition(position) {
-
     // user's current latitude and longitude
     var lati = position.coords.latitude;
     var long = position.coords.longitude;
@@ -220,40 +222,94 @@ function initMap() {
         lng: yelpSearch.coordinates.longitude
       };
 
+      //Initialize google map with styling & marker
+      map = new google.maps.Map(document.getElementById("map"), {
+        center: restLocation,
+        disableDefaultUI: true,
+        styles: snazzy,
+        zoom: 10
+        //   gestureHandling: "none"
+      });
+
+      var endIcon = "../images/Logo-Export/Food-Finder-Map-Marker.png";
+      var startIcon = "../images/Logo-Export/FF-User-Icon.png";
+
+      var markerStart = new google.maps.Marker({
+        map: map,
+        icon: startIcon,
+        zIndex: 210,
+        optimized: false,
+        animation: google.maps.Animation.DROP
+      });
+      var markerEnd = new google.maps.Marker({
+        map: map,
+        icon: endIcon,
+        zIndex: 210,
+        optimized: false,
+        animation: google.maps.Animation.DROP
+      });
+      //-----------------------------
+      //Enable css styling for the google marker
+      var myoverlay = new google.maps.OverlayView();
+      myoverlay.draw = function() {
+        //this assigns an id to the markerlayer Pane, so it can be referenced by CSS
+        this.getPanes().markerLayer.id = "markerLayer";
+      };
+      myoverlay.setMap(map);
+      //-----------------------------
+
       // DISPLAY RESTAURANT DATA ON PAGE
       $("#rest-name").html(yelpSearch.name);
       $("#rest-city").html(yelpSearch.location.city);
       //Breakup the titles and stats to style them
       //Rating
-      var yelpRating = $("<p>").attr("class", "ratingStat").text(yelpSearch.rating);
+      var yelpRating = $("<p>")
+        .attr("class", "ratingStat")
+        .text(yelpSearch.rating);
       // var ratingTitle = $("<p>").attr("class", "rating-title");
       $("#rest-rating").html(yelpRating);
       //Price
-      var yelpPrice = $("<p>").attr("class", "ratingStat").text(yelpSearch.price);
-      $("#rest-price").html(yelpPrice);
+      var yelpPrice = $("<p>")
+        .attr("class", "ratingStat")
+        .text(yelpSearch.price);
+      $("#rest-price").append(yelpPrice);
       //ReviewCount
-      var yelpReview = $("<p>").attr("class", "ratingStat").text(yelpSearch.review_count);
-      $("#rest-review").html(yelpReview);
+      var yelpReview = $("<p>")
+        .attr("class", "ratingStat")
+        .text(yelpSearch.review_count);
+      $("#rest-review").append(yelpReview);
       //Load yelp image
       $("#rest-image").attr("src", yelpSearch.image_url);
       //Restaurant OPEN or CLOSED
 
       if (yelpSearch.is_closed === false) {
-        var closed = $("<p>").attr("class", "statusClosed").text("closed");
-        var open = $("<p>").attr("class", "statusOpen").text("open");
-        var currently = $("<p>").attr("class", "status-title").text("currently");
-        $("#rest-open").html(currently);
-        $("#rest-open").html(open);
+        var open = $("<p>")
+          .attr("class", "statusOpen")
+          .text("open");
+        var currently = $("<p>")
+          .attr("class", "status-title")
+          .text("currently");
+        $("#rest-open").append(currently);
+        $("#rest-open").append(open);
       } else {
-        $("#rest-open").html(currently);
-        $("#rest-open").html(open);
+        var closed = $("<p>")
+          .attr("class", "statusClosed")
+          .text("closed");
+        var currently = $("<p>")
+          .attr("class", "status-title")
+          .text("currently");
+        $("#rest-open").append(currently);
+        $("#rest-open").append(open);
       }
       //Phone # Styling
-      var phone = $("<p>").attr("class", "status-title").text("phone");
-      var yelpPhone = $("<p>").attr("class", "yelpPhone").text(yelpSearch.display_phone);
-      $("#rest-phone").html(phone);
-      $("#rest-phone").html(yelpPhone);
-
+      var phone = $("<p>")
+        .attr("class", "status-title")
+        .text("phone");
+      var yelpPhone = $("<p>")
+        .attr("class", "yelpPhone")
+        .text(yelpSearch.display_phone);
+      $("#rest-phone").append(phone);
+      $("#rest-phone").append(yelpPhone);
       //Populates the restaurant category type regardless of how many there are
       console.log(yelpSearch.categories);
       for (var i = 0; i < yelpSearch.categories.length; i++) {
@@ -270,13 +326,15 @@ function initMap() {
         console.log(badgeType);
       }
       //Address breakdown
-      var addressTitle = $("<p>").attr("class", "status-title").text("Address");
+      var addressTitle = $("<p>")
+        .attr("class", "status-title")
+        .text("Address");
       var address1 = $("<h5>").text(yelpSearch.location.display_address[0]);
       var address2 = $("<h5>").text(yelpSearch.location.display_address[1]);
       $("#rest-address").html(addressTitle);
       $("#rest-address").append(address1);
       $("#rest-address").append(address2);
-      
+
       //Button event handler
       $("#tryLater").on("click", function(event) {
         event.preventDefault();
@@ -306,7 +364,9 @@ function initMap() {
 
       // Google directions api
       var directionsService = new google.maps.DirectionsService();
-      var directionsDisplay = new google.maps.DirectionsRenderer();
+      var directionsDisplay = new google.maps.DirectionsRenderer({
+        suppressMarkers: true
+      });
 
       function calculateAndDisplayRoute(directionsService, directionsDisplay) {
         directionsService.route(
@@ -340,7 +400,7 @@ function initMap() {
           icon: icon,
           title: title
         });
-      }
+      };
 
       //Stylize the icons
       var icons = {
