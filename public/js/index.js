@@ -11,7 +11,7 @@ $(document).ready(function() {
     console.log("Going to user profile");
     $.ajax({
       type: "GET",
-      url: "/user"
+      url: "/api/restaurants"
     });
   });
 });

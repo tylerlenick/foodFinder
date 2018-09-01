@@ -17,8 +17,33 @@ module.exports = function(app) {
   });
 
   // Load example page and pass in an example by id
-  app.get("/user", function(req, res) {
-    res.render("user");
+  app.get("/user/:id", function(req, res) {
+    console.log("testing user route");
+    db.User.findOne({
+      where: {
+        id: req.params.id
+      },
+      include: [
+        {
+          model: db.Restaurant,
+          where: {
+            UserId: req.params.id
+          }
+        }
+      ]
+    }).then(function(results) {
+      console.log("html routes::::::", results.dataValues.Restaurants);
+      var userInfo = results.dataValues;
+      var hbsObject = {
+        fname: userInfo.fname,
+        lname: userInfo.lname,
+        email: userInfo.email,
+        Restaurants: userInfo.Restaurants
+      };
+      res.render("user", {
+        hbsObject: hbsObject
+      });
+    });
   });
 
   // Render 404 page for any unmatched routes

@@ -187,6 +187,8 @@ function initMap() {
       console.log("Geolocation is not supported by this browser.");
     }
   }
+  // Call getLocation which fires all nested functions
+  getLocation();
 
   // Show position function renders user's location too nested Google Maps HTTP requests
   function showPosition(position) {
@@ -265,7 +267,7 @@ function initMap() {
         .attr("class", "ratingStat")
         .text(yelpSearch.rating);
       // var ratingTitle = $("<p>").attr("class", "rating-title");
-      $("#rest-rating").append(yelpRating);
+      $("#rest-rating").html(yelpRating);
       //Price
       var yelpPrice = $("<p>")
         .attr("class", "ratingStat")
@@ -279,6 +281,7 @@ function initMap() {
       //Load yelp image
       $("#rest-image").attr("src", yelpSearch.image_url);
       //Restaurant OPEN or CLOSED
+
       if (yelpSearch.is_closed === false) {
         var open = $("<p>")
           .attr("class", "statusOpen")
@@ -313,10 +316,11 @@ function initMap() {
         var badgeSpan = $("<div>").attr("class", "new badge");
         var badgeText = $("<p>").attr("class", "p-small");
         var badgeType = yelpSearch.categories[i].alias;
-        badgeText.append(badgeType);
-        badgeSpan.append(badgeText);
+        badgeText.html(badgeType);
+        badgeSpan.html(badgeText);
+
         //Targets the holder div where the badges go
-        $("#rest-type").append(badgeSpan);
+        $("#rest-type").html(badgeSpan);
         console.log(badgeSpan);
         console.log(badgeText);
         console.log(badgeType);
@@ -337,10 +341,17 @@ function initMap() {
         var toastHTML =
           "<h6 id='toast' class='teal z-depth-5 center-align' style='border-radius: 3px; padding:25px'>Restaurant added to User Profile.</h6>";
         M.toast({ html: toastHTML }, { displayLength: 4000 });
-        $.post("/api/restaurants", yelpSearch, function() {
-          console.log("Restaurant added to database.");
-        });
-        M.toast({ html: null });
+        $.post(
+          "/api/restaurants",
+          {
+            yelpID: yelpSearch.id,
+            name: yelpSearch.name
+          },
+          function(req, res) {
+            console.log("Restaurant added to database.");
+          }
+        );
+        M.toast({ html: null }, { displayLength: 4000 });
       });
 
       //Initialize google map
@@ -391,14 +402,14 @@ function initMap() {
       }
 
       // Set the marker locations
-      function makeMarker(position, icon, title, map) {
+      var makeMarker = function(position, icon, title, map) {
         new google.maps.Marker({
           position: position,
           map: map,
           icon: icon,
           title: title
         });
-      }
+      };
 
       //Stylize the icons
       var icons = {
@@ -428,9 +439,6 @@ function initMap() {
       directionsDisplay.setMap(map);
     });
   }
-
-  // Call getLocation which fires all nested functions
-  getLocation();
 }
 console.log(initMap);
 
@@ -441,6 +449,13 @@ $("#refresh-location").on("click", function() {
   var userlatlng = [];
   var restlatlng = [];
   var restlocation;
+
+  //Clear markers when this function is called
+  // Set the marker locations
+  // directionsDisplay.setDirections({routes: []});
+
+  // var directionsService = new google.maps.DirectionsService(null);
+  // var directionsDisplay = new google.maps.DirectionsRenderer(null);
 
   //Clear a shit-ton of stuff, so it doesn't re-load again
   $("#rest-name").html(" ");

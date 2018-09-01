@@ -20,9 +20,9 @@
                 <h6>Bio</h6>
                 <div class="divider"></div>
                 <ul id="user-info-list">
-                    <li class="user-info">First Name: {{hbsObject.user.fname}}</li>
-                    <li class="user-info">Last Name: {{hbsObject.user.lname}}</li>
-                    <li class="user-info">Email: {{hbsObject.user.email}}</li>
+                    <li class="user-info">First Name: {{hbsObject.fname}}</li>
+                    <li class="user-info">Last Name: {{hbsObject.lname}}</li>
+                    <li class="user-info">Email: {{hbsObject.email}}</li>
                 </ul>
             </div>
         </div>
@@ -42,21 +42,21 @@
                     <a href="#!" class="collection-item">Restaurant #3</a>
                 </div>
             </div> --}}
-            {{!-- <div class="col l10 offset-l1 m12 s12 animated fadeInUpBig center-align">
+            <div class="col l10 offset-l1 m12 s12 animated fadeInUpBig center-align">
                 <!-- DID NOT LIKE RESTAURANTS -->
                 <h6>Try Later</h6>
                 <div class="divider"></div>
                 <ul class="collection">
-                    {{#each hbsObject.restaurants}}
+                    {{#each hbsObject.Restaurants}}
                     <li class="collection-item left-align">
-                        {{this.dataValues.name}}
-                        <button class="delete red darken-3 waves-effect waves-light btn" data-id={{this.dataValues.yelpID}}>
+                        {{this.name}}
+                        <button class="delete red darken-3 waves-effect waves-light btn" data-id={{this.yelpID}}>
                             <i class="material-icons">clear</i>
                         </button>
                     </li>
                     {{/each}}
                 </ul>
-            </div> --}}
+            </div>
             {{!-- <div class="col l4 m12 s12 animated fadeInUpBig">
                 <!-- DID NOT LIKE RESTAURANTS -->
                 <h6>Disliked</h6>

@@ -6,42 +6,44 @@ exports.restaurantList = function(req, res) {
   var user = req.user;
   console.log(user);
   //Find all stored restaurants for logged in user
-  db.Restaurant.findAll({
+  db.User.findOne({
     where: {
-      UserId: user.id
-    }
+      id: user.id
+    },
+    include: [
+      {
+        model: db.Restaurant,
+        where: {
+          userId: user.id
+        }
+      }
+    ]
   }).then(function(results) {
     //Push all returned into array for front end use.
-    var usersStoredRestaurants = [];
-    for (var i = 1; i < results.length; i++) {
-      usersStoredRestaurants.push(results[i]);
-    }
-    var hbsObj = {
-      user: user,
-      restaurants: usersStoredRestaurants
+    var userInfo = results.dataValues;
+    var hbsObject = {
+      fname: userInfo.fname,
+      lname: userInfo.lname,
+      email: userInfo.email,
+      Restaurants: userInfo.Restaurants
     };
-    console.log("===========HBSOBJECT===============");
-    console.log(hbsObj.restaurants[0].dataValues);
-    //render to handlebars
-    res.json(hbsObj);
+    res.redirect("/user/" + user.id);
   });
 };
 
 //POST new restaurant
 exports.saveRestaurant = function(req, res) {
   var userId = req.user.id;
-  var newId = req.body.id;
+  var newId = req.body.yelpID;
   var restaurantName = req.body.name;
-  console.log(req.body);
-  console.log(req.user);
+  console.log("restcontroller", req.body);
+  console.log("restcontroller", req.user);
   db.Restaurant.create({
     yelpID: newId,
     name: restaurantName,
     UserId: userId
   }).then(function(errors) {
-    if (errors) {
-      throw errors;
-    }
+    if (errors) throw errors;
     res.send("A new restaurant has been stored");
   });
 };
