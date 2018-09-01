@@ -373,46 +373,47 @@ function initMap() {
 }
 console.log(initMap);
 
-$("#refresh-location").on("click", function() {
-  //Clear arrays where information was pushed
-  var userLocation;
-  var restaurant = [];
-  var userlatlng = [];
-  var restlatlng = [];
-  var restlocation;
+// $("#refresh-location").on("click", function() {
+//   //Clear arrays where information was pushed
+//   var userLocation;
+//   var restaurant = [];
+//   var userlatlng = [];
+//   var restlatlng = [];
+//   var restlocation;
+// console.log(restaurant.length + "\n" + userlatlng.length + "\n" + restlatlng.length);
+//   //Clear markers when this function is called
+//   // Set the marker locations
+//   // directionsDisplay.setDirections({routes: []});
 
-  //Clear markers when this function is called
-  // Set the marker locations
-  // directionsDisplay.setDirections({routes: []});
+//   // var directionsService = new google.maps.DirectionsService(null);
+//   // var directionsDisplay = new google.maps.DirectionsRenderer(null);
 
-  // var directionsService = new google.maps.DirectionsService(null);
-  // var directionsDisplay = new google.maps.DirectionsRenderer(null);
+//   //Clear a shit-ton of stuff, so it doesn't re-load again
+//   $("#rest-name").html(" ");
 
-  //Clear a shit-ton of stuff, so it doesn't re-load again
-  $("#rest-name").html(" ");
+//   $("#rest-city").html(" ");
 
-  $("#rest-city").html(" ");
+//   $("#rest-rating").html(" ");
 
-  $("#rest-rating").html(" ");
+//   $("#rest-price").html(" ");
 
-  $("#rest-price").html(" ");
+//   $("#rest-review").html(" ");
 
-  $("#rest-review").html(" ");
+//   $("#rest-image").attr("src", " ");
 
-  $("#rest-image").attr("src", " ");
+//   $("#rest-open").html(" ");
 
-  $("#rest-open").html(" ");
+//   $("#rest-open").html(" ");
 
-  $("#rest-open").html(" ");
+//   $("#rest-phone").html(" ");
 
-  $("#rest-phone").html(" ");
+//   $("#rest-phone").html(" ");
 
-  $("#rest-phone").html(" ");
+//   $("#rest-type").html(" ");
 
-  $("#rest-type").html(" ");
+//   $("#rest-address").html(" ");
 
-  $("#rest-address").html(" ");
-
-  initMap();
-  console.log("Generating new restaurant.");
-});
+//   initMap();
+//   console.log("Generating new restaurant.");
+  
+// });
